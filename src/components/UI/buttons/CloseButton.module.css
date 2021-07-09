@@ -1,0 +1,21 @@
+.icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.button {
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  border: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 360px;
+  font-weight: bold;
+}

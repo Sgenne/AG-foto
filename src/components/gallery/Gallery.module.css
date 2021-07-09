@@ -1,0 +1,15 @@
+.row {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1rem 1rem;
+}
+
+.row img {
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
+}
+
+.row img:hover {
+  cursor: pointer;
+}

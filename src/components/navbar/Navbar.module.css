@@ -1,0 +1,24 @@
+.container {
+  margin: 0 0 1.5rem 0;
+}
+
+.links-section {
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+}
+
+.links-section a {
+  text-decoration: none;
+  font-size: 20px;
+  color: #6b6b6b;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.links-section a:hover {
+  color: #000;
+}
+
+
