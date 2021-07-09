@@ -9,6 +9,14 @@
   width: 50%;
 }
 
+.link-container {
+  position: relative;
+}
+
+ .gallery-category-selector {
+  /* border: 2px solid red; */
+} 
+
 .links-section a {
   text-decoration: none;
   font-size: 20px;
@@ -18,7 +26,7 @@
 }
 
 .links-section a:hover {
-  color: #000;
+  color: #000;  
 }
 
 

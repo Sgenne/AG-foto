@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import firebase from "firebase/app";
+// import firebase from "firebase/app";
 import "firebase/storage";
 
 // import styles from "./App.module.css";
@@ -71,24 +71,28 @@ const IMAGES = [
 ];
 
 
-firebase.initializeApp({
-  apiKey: "AIzaSyAX8L6EW_qA1hHJar-rA4VMX2m8DmhWc98",
-  authDomain: "foto-7b483.firebaseapp.com",
-  projectId: "foto-7b483",
-  storageBucket: "foto-7b483.appspot.com",
-  messagingSenderId: "257680495752",
-  appId: "1:257680495752:web:673377986d1927e6ecfb3d",
-});
+// firebase.initializeApp({
+//   apiKey: "AIzaSyAX8L6EW_qA1hHJar-rA4VMX2m8DmhWc98",
+//   authDomain: "foto-7b483.firebaseapp.com",
+//   projectId: "foto-7b483",
+//   storageBucket: "foto-7b483.appspot.com",
+//   messagingSenderId: "257680495752",
+//   appId: "1:257680495752:web:673377986d1927e6ecfb3d",
+// });
 
-const storage = firebase.storage();
-const storageRef = storage.ref();
+// const storage = firebase.storage();
+// const storageRef = storage.ref();
 
 function App() {
 
-useEffect(() => {
-  const imagesRef = storageRef.child("images");
-  console.log(imagesRef);
-}, [])
+// useEffect(() => {
+//   const imagesRef = storageRef.child("images");
+//   imagesRef.listAll().then(res => {
+//     res.prefixes.forEach(folderRef => {
+//       console.log("folder: " + folderRef.name)
+//     })
+//   })
+// }, [])
 
   return (
     <div className="App">
