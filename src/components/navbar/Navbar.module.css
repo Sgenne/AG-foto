@@ -24,7 +24,9 @@
   transform: scaleY(1);
   z-index: 20;
   width: 40vw;
-  transform: translate(-30%)
+  height: 10vh;
+  transform: translate(-30%);
+  /* border: 2px solid green; */
 } 
 
 .categories-hidden {
