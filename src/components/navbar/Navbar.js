@@ -5,14 +5,14 @@ import styles from "./Navbar.module.css";
 import CategorySelector from "./CategorySelector";
 
 const Navbar = () => {
-  const [showGalleryCategories, setShowGalleryCategories] = useState(false);
+  const [galleryCategoriesExpanded, setGalleryCategoriesExpanded] = useState(false);
 
   const galleryMouseOverHandler = () => {
-    setShowGalleryCategories(true);
+    setGalleryCategoriesExpanded(true);
   };
 
   const galleryMouseOutHandler = () => {
-    setShowGalleryCategories(false);
+    setGalleryCategoriesExpanded(false);
   };
 
   return (
@@ -24,12 +24,10 @@ const Navbar = () => {
           onMouseOut={galleryMouseOutHandler}
           className={styles["link-container"]}
         >
-          <NavLink to="/galleri">Galleri</NavLink>
-          {showGalleryCategories && (
-            <div className={styles["gallery-category-selector"]}>
+          <NavLink className={styles["category-link"]} to="/galleri">Galleri</NavLink>
+            <div className={`${styles["category-dropdown"]} ${!galleryCategoriesExpanded ? styles["categories-hidden"] : ""}`}>
               <CategorySelector onMouseOver={galleryMouseOverHandler} onMouseOut={galleryMouseOutHandler} />
             </div>
-          )}
         </div>
         <NavLink to="/">Blogg</NavLink>
         <NavLink to="/">kontakt</NavLink>

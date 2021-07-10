@@ -38,24 +38,31 @@ const DUMMY_CATEGORIES = [
 ];
 
 const CategorySelector = (props) => {
-  const [currentImageSrc, setCurrentImageSrc] = useState(DUMMY_CATEGORIES[0].categoryImgSrc);
+  const [currentImageSrc, setCurrentImageSrc] = useState(
+    DUMMY_CATEGORIES[0].categoryImgSrc
+  );
 
-  const categoryListContent = DUMMY_CATEGORIES.map(category => (
-    <div>
+  const linkHoverHandler = (imgSrc) => {
+    console.log(imgSrc)
+    setCurrentImageSrc(imgSrc);
+  };
+
+  const categoryListContent = DUMMY_CATEGORIES.map((category) => (
+    <div onMouseOver={linkHoverHandler.bind(null, category.categoryImgSrc)}>
       <NavLink to={category.categoryPath}>{category.categoryName}</NavLink>
     </div>
-  ))
+  ));
 
-  const categoryImageContent = <img src={currentImageSrc} alt="category" />
+  const categoryImageContent = <img src={currentImageSrc} alt="category" />;
 
   return (
-    <div onMouseOver={props.onMouseOver} onMouseOut={props.onMouseOut} className={styles["container"]}>
-      <div className={styles["category-list"]}>
-        {categoryListContent}
-      </div>
-      <div className={styles["image-container"]}>
-        {categoryImageContent}
-      </div>
+    <div
+      onMouseOver={props.onMouseOver}
+      onMouseOut={props.onMouseOut}
+      className={styles["container"]}
+    >
+      <div className={styles["category-list"]}>{categoryListContent}</div>
+      <div className={styles["image-container"]}>{categoryImageContent}</div>
     </div>
   );
 };
