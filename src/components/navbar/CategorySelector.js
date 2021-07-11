@@ -48,7 +48,7 @@ const CategorySelector = (props) => {
   };
 
   const categoryListContent = DUMMY_CATEGORIES.map((category) => (
-    <div onMouseOver={linkHoverHandler.bind(null, category.categoryImgSrc)}>
+    <div className={styles["link-container"]} onMouseOver={linkHoverHandler.bind(null, category.categoryImgSrc)}>
       <NavLink to={category.categoryPath}>{category.categoryName}</NavLink>
     </div>
   ));

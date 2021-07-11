@@ -1,12 +1,15 @@
 .container {
   position: relative;
-  height: 50vh;
-  width: 70%;
-  margin: auto;
 }
 
 .image-container {
-  position: relative;
+  width: 90rem;
+  height: 48rem;
+  max-width: 80vw;
+  max-height: 70vh;
+  left: 50%;
+  transform: translate(-50%);
+  position: absolute;
   transition: opacity 1500ms ease-in-out;
 }
 
@@ -16,7 +19,7 @@
 }
 
 .current-image-entered {
-    opacity: 1;
+  opacity: 1;
 }
 
 .prev-image-exiting {
@@ -29,9 +32,7 @@
 }
 
 .container img {
-  left: 0;
-  position: absolute;
   width: 100%;
-  height: 65vh;
+  height: 100%;
   object-fit: cover;
 }
