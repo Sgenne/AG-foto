@@ -1,6 +1,5 @@
 .container {
-  position: relative;
-  
+  position: relative;  
   border-radius: 20px;
   z-index: 999;
   background-color: white;

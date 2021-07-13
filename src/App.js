@@ -1,21 +1,17 @@
-import { useEffect, useState } from "react";
+  // import { useEffect, useState, useContext } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import firebase from "firebase/app";
-import "firebase/storage";
-import "firebase/database";
+// import firebase from "firebase/app";
+// import "firebase/storage";
+// import "firebase/database";
 
 // import styles from "./App.module.css";
 import Navbar from "./components/navbar/Navbar";
 import Header from "./components/navbar/Header";
-import ImageCarousel from "./components/image-carousel/ImageCarousel";
 import Gallery from "./components/gallery/Gallery";
+import FrontPage from "./pages/FrontPage";
 // import Modal from "./components/UI/Modal";
 
-import img1 from "./dummyImages/rollingImages/benches.jpg";
-import img2 from "./dummyImages/rollingImages/canoes.jpg";
-import img3 from "./dummyImages/rollingImages/fishing.jpg";
-import img4 from "./dummyImages/rollingImages/hills.jpg";
 import img5 from "./dummyImages/forrest.jpg";
 import img6 from "./dummyImages/highway.jpg";
 import img7 from "./dummyImages/lake.jpg";
@@ -71,46 +67,40 @@ const IMAGES = [
   },
 ];
 
-firebase.initializeApp({
-  apiKey: "AIzaSyAX8L6EW_qA1hHJar-rA4VMX2m8DmhWc98",
-  authDomain: "foto-7b483.firebaseapp.com",
-  databaseURL:
-    "https://foto-7b483-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "foto-7b483",
-  storageBucket: "foto-7b483.appspot.com",
-  messagingSenderId: "257680495752",
-  appId: "1:257680495752:web:673377986d1927e6ecfb3d",
-});
-
-const storageRef = firebase.storage().ref();
-const dbRef = firebase.database().ref();
-
 function App() {
-  const [scrollingImages, setScrollingImages] = useState([]);
+  // const [scrollingImages, setScrollingImages] = useState([]);
 
-  useEffect(() => {
-    let tmpScrollingImages = [];
-    dbRef
-      .child("scrolling-images")
-      .get()
-      .then((dbImages) => {
-        dbImages.forEach((item) => {
-          const { "download-url": src, description, id } = item.val();
+  // const firebaseContext = useContext(FirebaseContext);
 
-          console.log(item.val());
+  // useEffect(() => {
+  //   let tmpScrollingImages = [];
+  //   dbRef
+  //     .child("scrolling-images")
+  //     .get()
+  //     .then((dbImages) => {
+  //       dbImages.forEach((item) => {
+  //         const { "download-url": src, description, id } = item.val();
 
-          const image = {
-            id,
-            src,
-            description,
-          };
-          tmpScrollingImages.push(image);
-        });
-        setScrollingImages(tmpScrollingImages);
-        console.log("download done")
-        console.log(tmpScrollingImages)
-      });
-  }, []);
+  //         console.log(item.val());
+
+  //         const image = {
+  //           id,
+  //           src,
+  //           description,
+  //         };
+  //         tmpScrollingImages.push(image);
+  //       });
+  //       setScrollingImages(tmpScrollingImages);
+  //       console.log("download done")
+  //       console.log(tmpScrollingImages)
+  //     });
+  // }, []);
+
+  // useEffect(() => {
+  //   firebaseContext.getScrollingImages().then(res => console.log(res));
+
+  //   // Create local async function that calls firebase and sets scrollingImages
+  // }, [firebaseContext])
 
   return (
     <div className="App">
@@ -119,7 +109,7 @@ function App() {
         <Navbar />
         <Switch>
           <Route path="/" exact>
-            <ImageCarousel images={scrollingImages} />
+            <FrontPage />
           </Route>
           <Route path="/galleri">
             <Gallery images={IMAGES} />

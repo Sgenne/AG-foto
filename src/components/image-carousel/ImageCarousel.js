@@ -28,6 +28,8 @@ const ImageCarousel = (props) => {
     return () => clearInterval(interval);
   }, [images]);
 
+  
+
   const carouselContent = images.map((image, index) => (
     <Transition
       in={index === currentImageIndex}
