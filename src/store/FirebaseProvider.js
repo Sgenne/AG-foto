@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-
 import firebase from "firebase";
-// import "firebase/storage";
 import "firebase/database";
 
 import FirebaseContext from "./firebase-context";
 
-const SCROLLING_IMAGES_PATH = "scrolling-images"; // Path from realtime database root.
+// Paths from realtime database root.
+const SCROLLING_IMAGES_PATH = "scrolling-images";
+const GALLERY_IMAGES_PATH = "gallery-images";
+const GALLERY_CATEGORIES_PATH = "gallery-categories";
 
 firebase.initializeApp({
   apiKey: "AIzaSyAX8L6EW_qA1hHJar-rA4VMX2m8DmhWc98",
@@ -19,30 +20,67 @@ firebase.initializeApp({
   appId: "1:257680495752:web:673377986d1927e6ecfb3d",
 });
 
-const storageRef = firebase.storage().ref();
 const dbRef = firebase.database().ref();
 
 const FirebaseProvider = (props) => {
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [galleryCategories, setGalleryCategories] = useState([])
+  
+  const getGalleryCategories = async () => {
+   const result = await dbRef.child(GALLERY_CATEGORIES_PATH).get();
+   const categories = result.val();
 
-  useEffect(() => {
-    // Make separate foldre in db for categories.
-  }, [])
+   return Object.values(categories)
+  }
 
+  const getGalleryImages = async (category) => {
+    try {
+      const fetchedImages = await dbRef
+        .child(`${GALLERY_IMAGES_PATH}/${category}`)
+        .get();
+
+      const imageArray = Object.values(fetchedImages.val());
+
+      return { images: imageArray };
+    } catch (err) {
+      return { error: err };
+    }
+  };
+
+  const getAllImages = async () => {
+    try {
+      const categories = await (
+        await dbRef.child(GALLERY_IMAGES_PATH).get()
+      ).val();
+
+      let images = [];
+      for (const category in categories) {
+        images = images.concat(Object.values(categories[category]));
+      }
+
+      return { images };
+    } catch (err) {
+      return { error: err };
+    }
+  };
+
+  /**
+   * @async
+   * @returns {Promise} Promise object containing downloadable urls of scrolling images.
+   */
   const getScrollingImages = async () => {
-    const images = await dbRef.child(SCROLLING_IMAGES_PATH).get();
+    try {
+      const images = await dbRef.child(SCROLLING_IMAGES_PATH).get();
 
-    return images.map(image => image.val());
+      return { images: Object.values(images.val()) };
+    } catch (err) {
+      return { error: err };
+    }
   };
 
   const firebaseContext = {
-    isLoading,
-    error,
     getScrollingImages,
-    getGalleryImages: () => {},
-    getGalleryCategories: () => {},
+    getGalleryImages,
+    getAllImages,
+    getGalleryCategories,
   };
 
   return (

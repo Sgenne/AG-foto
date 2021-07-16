@@ -1,22 +1,32 @@
-import { useState, useEffect, useContext } from "react"
-import ImageCarousel from "../components/image-carousel/ImageCarousel"
+import { useState, useEffect, useContext } from "react";
+import ImageCarousel from "../components/image-carousel/ImageCarousel";
 
-import FirebaseContext from "../store/firebase-context"
+import FirebaseContext from "../store/firebase-context";
 
 const FrontPage = () => {
-  const [scrollingImages, setScrollingImages] = useState([])
-  
-  const firebaseContext = useContext(FirebaseContext)
+  const [scrollingImages, setScrollingImages] = useState([]);
+  const [errorOccured, setErrorOccured] = useState(false);
+  const firebaseContext = useContext(FirebaseContext);
 
   useEffect(() => {
     const fetchScrollingImages = async () => {
-      const scrollingImages = await firebaseContext.getScrollingImages(); // Why does await not have an effect?? Try without.
-      setScrollingImages(scrollingImages);
+      const { images: scrollingImages, error } =
+        await firebaseContext.getScrollingImages();
+
+      if (error) {
+        setErrorOccured(true);
+      } else {
+        setScrollingImages(scrollingImages);
+      }
     };
     fetchScrollingImages();
-  }, [firebaseContext])
+  }, [firebaseContext]);
 
-  return <ImageCarousel images={scrollingImages} />
-}
+  if (errorOccured) {
+    return <div></div>
+  }
 
-export default FrontPage
+  return <ImageCarousel images={scrollingImages} />;
+};
+
+export default FrontPage;

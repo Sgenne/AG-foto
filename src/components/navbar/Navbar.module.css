@@ -9,7 +9,7 @@
   width: 50%;
 }
 
-.link-container {
+.dropdown-container {
   position: relative;
 }
 
@@ -27,14 +27,14 @@
   height: 10vh;
   min-height: 4.8rem;
   transform: translate(-30%);
-  /* border: 2px solid green; */
 } 
 
 .categories-hidden {
   transform: scaleY(0);
 }
 
-.links-section a {
+.links-section a, .category-link {
+  cursor: pointer;
   text-decoration: none;
   font-size: 20px;
   color: #6b6b6b;
@@ -42,7 +42,7 @@
   transition: all 0.3s ease-in-out;
 }
 
-.links-section a:hover {
+.links-section a:hover, .category-link:hover {
   color: #000;  
 }
 

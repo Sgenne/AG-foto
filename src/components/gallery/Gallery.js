@@ -4,7 +4,6 @@ import styles from "./Gallery.module.css";
 
 const IMAGES_PER_ROW = 3;
 
-// Converts a list of images into a list of lists of images, i.e. a list of rows of images.
 const getRows = (images, imagesPerRow) => {
   const numberOfRows = Math.ceil(images.length / imagesPerRow);
 
@@ -25,6 +24,9 @@ const Gallery = ({ images }) => {
   };
 
   useEffect(() => {
+    setRows([])
+    if (!images) return;
+
     const imageRows = getRows(images, IMAGES_PER_ROW);
 
     for (const row of imageRows) {
@@ -33,8 +35,8 @@ const Gallery = ({ images }) => {
           {row.map((image) => (
             <img
               key={image.id}
-              src={image.src}
-              alt="deez nutz"
+              src={image["download-url"]}
+              alt={image.description}
               onClick={imageClickedHandler.bind(null, image.id)}
             />
           ))}

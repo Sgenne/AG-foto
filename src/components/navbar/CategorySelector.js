@@ -1,55 +1,38 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 
+import FirebaseContext from "../../store/firebase-context";
 import styles from "./CategorySelector.module.css";
 
-import img1 from "../../dummyImages/benches.jpg";
-import img2 from "../../dummyImages/canoes.jpg";
-import img3 from "../../dummyImages/fishing.jpg";
-import img4 from "../../dummyImages/hills.jpg";
-import img5 from "../../dummyImages/forrest.jpg";
-
-const DUMMY_CATEGORIES = [
-  {
-    categoryName: "Arkitektur",
-    categoryPath: "#",
-    categoryImgSrc: img1,
-  },
-  {
-    categoryName: "Djur",
-    categoryPath: "#",
-    categoryImgSrc: img2,
-  },
-  {
-    categoryName: "Landskap",
-    categoryPath: "#",
-    categoryImgSrc: img3,
-  },
-  {
-    categoryName: "Macro",
-    categoryPath: "#",
-    categoryImgSrc: img4,
-  },
-  {
-    categoryName: "Människor",
-    categoryPath: "#",
-    categoryImgSrc: img5,
-  },
-];
-
 const CategorySelector = (props) => {
-  const [currentImageSrc, setCurrentImageSrc] = useState(
-    DUMMY_CATEGORIES[0].categoryImgSrc
-  );
+  const [categories, setCategories] = useState([]);
+  const [currentImageSrc, setCurrentImageSrc] = useState(null);
+
+  const firebaseContext = useContext(FirebaseContext);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categories = await firebaseContext.getGalleryCategories();
+      setCategories(categories);
+      setCurrentImageSrc(categories[0]["category-image"]);
+    };
+    fetchCategories();
+  }, [firebaseContext]);
 
   const linkHoverHandler = (imgSrc) => {
-    console.log(imgSrc)
     setCurrentImageSrc(imgSrc);
   };
 
-  const categoryListContent = DUMMY_CATEGORIES.map((category) => (
-    <div className={styles["link-container"]} onMouseOver={linkHoverHandler.bind(null, category.categoryImgSrc)}>
-      <NavLink to={category.categoryPath}>{category.categoryName}</NavLink>
+  if (!categories) {
+    return <div></div>;
+  }
+
+  const categoryListContent = categories.map((category) => (
+    <div
+      className={styles["link-container"]}
+      onMouseOver={linkHoverHandler.bind(null, category["category-image"])}
+    >
+      <Link to={`/gallery/${category.category}`}>{category.category}</Link>
     </div>
   ));
 

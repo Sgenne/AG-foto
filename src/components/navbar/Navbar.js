@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import styles from "./Navbar.module.css";
 import CategorySelector from "./CategorySelector";
@@ -18,19 +18,19 @@ const Navbar = () => {
   return (
     <div className={styles["container"]}>
       <div className={styles["links-section"]}>
-        <NavLink to="/">Om</NavLink>
+        <Link to="/">Om</Link>
         <div
           onMouseOver={galleryMouseOverHandler}
           onMouseOut={galleryMouseOutHandler}
-          className={styles["link-container"]}
+          className={styles["dropdown-container"]}
         >
-          <NavLink className={styles["category-link"]} to="/galleri">Galleri</NavLink>
+          <Link to="/gallery">Galleri</Link>
             <div className={`${styles["category-dropdown"]} ${!galleryCategoriesExpanded ? styles["categories-hidden"] : ""}`}>
               <CategorySelector onMouseOver={galleryMouseOverHandler} onMouseOut={galleryMouseOutHandler} />
             </div>
         </div>
-        <NavLink to="/">Blogg</NavLink>
-        <NavLink to="/">Kontakt</NavLink>
+        <Link to="/">Blogg</Link>
+        <Link to="/">Kontakt</Link>
       </div>
     </div>
   );

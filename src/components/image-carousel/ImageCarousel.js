@@ -5,8 +5,8 @@ import styles from "./ImageCarousel.module.css";
 
 const ALT_TEXT = "Ann-Marie Genne photography";
 
-const TRANSITION_DURATION = 1500;
-const IMAGE_DURATION = 8000;
+const TRANSITION_DURATION = 2000;
+const IMAGE_DURATION = 5000;
 
 const CURRENT_IMAGE_CLASSNAMES = {
   entering: styles["current-image-entering"],
@@ -17,6 +17,7 @@ const CURRENT_IMAGE_CLASSNAMES = {
 
 const ImageCarousel = (props) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [displayedImages, setDisplayedImages] = useState(null);
 
   const { images } = props;
 
@@ -28,26 +29,36 @@ const ImageCarousel = (props) => {
     return () => clearInterval(interval);
   }, [images]);
 
-  
+  useEffect(() => {
+    setDisplayedImages(
+      images.map((image, index) => (
+        <Transition
+          in={index === currentImageIndex}
+          timeout={TRANSITION_DURATION}
+          key={image.id}
+        >
+          {(state) => {
+            return (
+              <div
+                className={`${styles["image-container"]} ${CURRENT_IMAGE_CLASSNAMES[state]}`}
+              >
+                <img src={image["download-url"]} alt={ALT_TEXT} />
+              </div>
+            );
+          }}
+        </Transition>
+      ))
+    ); 
+  }, [images, currentImageIndex])
 
-  const carouselContent = images.map((image, index) => (
-    <Transition
-      in={index === currentImageIndex}
-      timeout={TRANSITION_DURATION}
-      key={image.id}
-    >
-      {(state) => {
-        return (
-          <div
-            className={`${styles["image-container"]} ${CURRENT_IMAGE_CLASSNAMES[state]}`}
-          >
-            <img src={image.src} alt={ALT_TEXT} />
-          </div>
-        );
-      }}
-    </Transition>
-  ));
-  return <div className={styles["container"]}>{carouselContent}</div>;
+  console.log("current image: ")
+  console.log(images[currentImageIndex])
+
+  return (
+    <div className={styles["container"]}>
+      {displayedImages}
+    </div>
+  );
 };
 
 export default ImageCarousel;

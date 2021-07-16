@@ -1,11 +1,10 @@
 import { createContext } from "react";
 
 const FirebaseContext = createContext({
-    isLoading: false,
-    error: null,
-    getScrollingImages: () => {},
-    getGalleryImages: (category) => {},
-    getGalleryCategories: () => {},
+    getScrollingImages: () => Promise,
+    getGalleryImages: (category) => Promise,
+    getAllImages: () => Promise,
+    getGalleryCategories: () => Promise,
 })
 
 export default FirebaseContext;
