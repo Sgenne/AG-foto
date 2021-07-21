@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import styles from "./Gallery.module.css";
+import ImageModal from "./ImageModal";
 
 const IMAGES_PER_ROW = 3;
 
@@ -18,13 +19,20 @@ const getRows = (images, imagesPerRow) => {
 
 const Gallery = ({ images }) => {
   const [rows, setRows] = useState([]);
+  const [showImageModal, setShowImageModal] = useState(false);
+  const [displayedImage, setDisplayedImage] = useState(null); // Image displayed in ImageModal
 
-  const imageClickedHandler = (imageId) => {
-    console.log(imageId);
+  const imageClickedHandler = (image) => {
+    setDisplayedImage(image);
+    setShowImageModal(true);
+  };
+
+  const closeModalHandler = () => {
+    setShowImageModal(false);
   };
 
   useEffect(() => {
-    setRows([])
+    setRows([]);
     if (!images) return;
 
     const imageRows = getRows(images, IMAGES_PER_ROW);
@@ -35,18 +43,32 @@ const Gallery = ({ images }) => {
           {row.map((image) => (
             <img
               key={image.id}
-              src={image["download-url"]}
+              src={image["preview-url"]}
               alt={image.description}
-              onClick={imageClickedHandler.bind(null, image.id)}
+              onClick={imageClickedHandler.bind(null, image)}
             />
           ))}
         </div>
       );
       setRows((prevRows) => [...prevRows, rows]);
+      setDisplayedImage(images[0]);
     }
   }, [images]);
 
-  return <div className={styles["row-container"]}>{rows}</div>;
+  return (
+    <>
+      {showImageModal && (
+        <ImageModal onClose={closeModalHandler} image={displayedImage} />
+      )}
+      <div
+        className={`${styles["row-container"]} ${
+          showImageModal ? styles["no-scroll"] : ""
+        }`}
+      >
+        {rows}
+      </div>
+    </>
+  );
 };
 
 export default Gallery;

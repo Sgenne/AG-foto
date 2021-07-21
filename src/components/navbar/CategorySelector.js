@@ -31,8 +31,9 @@ const CategorySelector = (props) => {
     <div
       className={styles["link-container"]}
       onMouseOver={linkHoverHandler.bind(null, category["category-image"])}
+      key={category["category-name"]}
     >
-      <Link to={`/gallery/${category.category}`}>{category.category}</Link>
+      <Link to={`/gallery/${category["category-name"]}`}>{category["category-name"]}</Link>
     </div>
   ));
 

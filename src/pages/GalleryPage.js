@@ -16,9 +16,6 @@ const GalleryPage = () => {
         ? await firebaseContext.getGalleryImages(category)
         : await firebaseContext.getAllImages();
 
-      console.log(images)
-
-
       if (error) {
         setErrorOccured(true);
       } else {
