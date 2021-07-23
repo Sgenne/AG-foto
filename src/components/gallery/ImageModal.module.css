@@ -1,4 +1,28 @@
+.loading-animation-container {
+  display: inline-block;
+}
+
+.image-container {
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}
+
 .image {
-    height: 85vh;
-    margin: -0.2rem -0.2rem -2rem -0.2rem;
+  height: 85vh;
+  margin: -0.2rem -0.2rem -2rem -0.2rem;
+}
+
+.arrow-container {
+  display: inline-block;
+  width: 5rem;
+  position: absolute;
+  top: 45%;
+  cursor: pointer;
+}
+
+.back-arrow {
+  left: -5rem;
 }

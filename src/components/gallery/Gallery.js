@@ -3,27 +3,13 @@ import { useState, useEffect } from "react";
 import styles from "./Gallery.module.css";
 import ImageModal from "./ImageModal";
 
-const IMAGES_PER_ROW = 3;
-
-const getRows = (images, imagesPerRow) => {
-  const numberOfRows = Math.ceil(images.length / imagesPerRow);
-
-  const tmpImages = [...images];
-
-  const rows = new Array(numberOfRows)
-    .fill()
-    .map((_) => tmpImages.splice(0, imagesPerRow));
-
-  return rows;
-};
-
 const Gallery = ({ images }) => {
-  const [rows, setRows] = useState([]);
+  const [galleryImages, setGalleryImages] = useState([]);
   const [showImageModal, setShowImageModal] = useState(false);
-  const [displayedImage, setDisplayedImage] = useState(null); // Image displayed in ImageModal
+  const [displayedImageIndex, setDisplayedImageIndex] = useState(0); // Index of image displayed in ImageModal.
 
-  const imageClickedHandler = (image) => {
-    setDisplayedImage(image);
+  const imageClickedHandler = (index) => {
+    setDisplayedImageIndex(index);
     setShowImageModal(true);
   };
 
@@ -31,42 +17,41 @@ const Gallery = ({ images }) => {
     setShowImageModal(false);
   };
 
+  const forwardPressedHandler = () => {
+    setDisplayedImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
+
+  const backPressedHandler = () => {
+    setDisplayedImageIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
+  };
+
   useEffect(() => {
-    setRows([]);
     if (!images) return;
-
-    const imageRows = getRows(images, IMAGES_PER_ROW);
-
-    for (const row of imageRows) {
-      const rows = (
-        <div key={Math.random()} className={styles["row"]}>
-          {row.map((image) => (
-            <img
-              key={image.id}
-              src={image["preview-url"]}
-              alt={image.description}
-              onClick={imageClickedHandler.bind(null, image)}
-            />
-          ))}
-        </div>
-      );
-      setRows((prevRows) => [...prevRows, rows]);
-      setDisplayedImage(images[0]);
-    }
+    const mappedImages = images.map((image, index) => (
+      <img
+        key={image.id}
+        src={image["preview-url"]}
+        alt={image.description}
+        onClick={imageClickedHandler.bind(null, index)}
+      />
+    ));
+    setGalleryImages(mappedImages);
+    setDisplayedImageIndex(0);
   }, [images]);
 
   return (
     <>
       {showImageModal && (
-        <ImageModal onClose={closeModalHandler} image={displayedImage} />
+        <ImageModal
+          onBackPressed={backPressedHandler}
+          onForwardPressed={forwardPressedHandler}
+          onClose={closeModalHandler}
+          image={images[displayedImageIndex]}
+        />
       )}
-      <div
-        className={`${styles["row-container"]} ${
-          showImageModal ? styles["no-scroll"] : ""
-        }`}
-      >
-        {rows}
-      </div>
+      <div className={styles["image-container"]}>{galleryImages}</div>
     </>
   );
 };

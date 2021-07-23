@@ -12,6 +12,7 @@ body {
   /* position: fixed; */
   /* border: 2px solid green; */
   width: 100vw;
+  overflow-x: hidden;
 }
 
 code {

@@ -1,15 +1,15 @@
 .icon {
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
 }
 
 .button {
   top: 0;
   right: 0;
-  transform: translate(50%, -50%);
+  transform: translate(55%, -55%);
   position: absolute;
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
   background-color: rgba(0, 0, 0, 0);
   cursor: pointer;
   border: none;

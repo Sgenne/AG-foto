@@ -10,7 +10,7 @@
   left: 50%;
   transform: translate(-50%);
   position: absolute;
-  transition: opacity 1500ms ease-in-out;
+  transition: opacity 2000ms ease-in-out;
 }
 
 .current-image-entering {

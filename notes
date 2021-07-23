@@ -1,7 +1,8 @@
 TODO today:
 =============
-* create rows in gallery using grid.
 
 Backlog:
 =========
-* navigation arrows for imageModal
+* Change modal 
+    - Modal should not have close button
+    - should not have background

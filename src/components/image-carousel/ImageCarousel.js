@@ -6,7 +6,7 @@ import styles from "./ImageCarousel.module.css";
 const ALT_TEXT = "Ann-Marie Genne photography";
 
 const TRANSITION_DURATION = 2000;
-const IMAGE_DURATION = 5000;
+const IMAGE_DURATION = 8000;
 
 const CURRENT_IMAGE_CLASSNAMES = {
   entering: styles["current-image-entering"],
@@ -48,17 +48,10 @@ const ImageCarousel = (props) => {
           }}
         </Transition>
       ))
-    ); 
-  }, [images, currentImageIndex])
+    );
+  }, [images, currentImageIndex]);
 
-  console.log("current image: ")
-  console.log(images[currentImageIndex])
-
-  return (
-    <div className={styles["container"]}>
-      {displayedImages}
-    </div>
-  );
+  return <div className={styles["container"]}>{displayedImages}</div>;
 };
 
 export default ImageCarousel;

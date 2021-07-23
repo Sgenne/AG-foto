@@ -6,12 +6,11 @@
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.85);
   z-index: 900;
-  cursor: pointer;
+  overflow-x: hidden;
 }
 
 .modal-container {
-  /* border: 2px solid red; */
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0);
   position: fixed;
   top: 50%;
   left: 50%;

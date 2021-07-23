@@ -1,16 +1,18 @@
-.row {
-  display: flex;
-  justify-content: space-evenly;
-  margin: 1rem 1rem;
-  position: static;
+.image-container {
+  margin: 0 calc(7vw/6);
+  display: grid;
+  justify-items: center;
+  grid-template-columns: auto auto auto;
+  grid-auto-rows: 31vw;
+  row-gap: calc(7vw/6);
 }
 
-.row img {
+.image-container img {
   width: 31vw;
   height: 31vw;
   object-fit: cover;
 }
 
-.row img:hover {
+.image-container img:hover {
   cursor: pointer;
 }
