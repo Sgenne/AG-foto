@@ -1,21 +1,15 @@
 .icon {
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 .button {
-  top: 0;
-  right: 0;
-  transform: translate(55%, -55%);
-  position: absolute;
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
   background-color: rgba(0, 0, 0, 0);
   cursor: pointer;
   border: none;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
   border-radius: 360px;
-  font-weight: bold;
+  padding: 0;
 }

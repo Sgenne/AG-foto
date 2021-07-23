@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import styles from "./Modal.module.css";
-import CloseButton from "./buttons/CloseButton";
 
 const Modal = ({ children, onClose }) => {
   useEffect(() => {
@@ -20,7 +19,6 @@ const Modal = ({ children, onClose }) => {
     <>
       <div className={styles["background"]} onClick={onClose} />
       <div className={styles["modal-container"]}>
-        <CloseButton onClick={onClose} />
         {children}
       </div>
     </>

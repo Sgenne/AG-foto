@@ -1,9 +1,11 @@
 import { useEffect, useCallback, useState } from "react";
+import Loader from "react-loader-spinner";
 
 import styles from "./ImageModal.module.css";
 import Modal from "../UI/Modal";
 import BackArrow from "../UI/icons/BackArrow";
 import ForwardArrow from "../UI/icons/ForwardArrow";
+import CloseButton from "../UI/buttons/CloseButton";
 
 const ImageModal = ({ image, onClose, onBackPressed, onForwardPressed }) => {
   const [imageIsLoaded, setImageIsLoaded] = useState(false);
@@ -28,12 +30,15 @@ const ImageModal = ({ image, onClose, onBackPressed, onForwardPressed }) => {
   );
 
   useEffect(() => {
+    setImageIsLoaded(false);
+  }, [image]);
+
+  useEffect(() => {
     window.addEventListener("keydown", keyPressedHandler);
     return () => window.removeEventListener("keydown", keyPressedHandler);
   }, [keyPressedHandler]);
 
   const imageLoadedHandler = () => {
-    console.log("loaded");
     setImageIsLoaded(true);
   };
 
@@ -45,7 +50,14 @@ const ImageModal = ({ image, onClose, onBackPressed, onForwardPressed }) => {
             ? styles["hidden"]
             : styles["loading-animation-container"]
         }
-      ></div>
+      >
+        <Loader
+          type="TailSpin"
+          color="#e1e1e1"
+          height={100}
+          width={100}
+        />
+      </div>
       <div
         className={imageIsLoaded ? styles["image-container"] : styles["hidden"]}
       >
@@ -62,6 +74,9 @@ const ImageModal = ({ image, onClose, onBackPressed, onForwardPressed }) => {
           alt={image.title}
           onLoad={imageLoadedHandler}
         />
+        <div className={styles["close-button"]}>
+          <CloseButton onClick={onClose} />
+        </div>
         <div
           onClick={onForwardPressed}
           className={`${styles["arrow-container"]} ${styles["forward-arrow"]}`}
