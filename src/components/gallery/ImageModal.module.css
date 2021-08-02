@@ -12,6 +12,8 @@
 
 .image {
   height: 85vh;
+  max-width: 90vw;
+  object-fit: cover;
 }
 
 .arrow-container {

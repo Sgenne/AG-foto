@@ -4,6 +4,7 @@ import Navbar from "./components/navbar/Navbar";
 import Header from "./components/navbar/Header";
 import FrontPage from "./pages/FrontPage";
 import GalleryPage from "./pages/GalleryPage";
+import BlogPage from "./pages/BlogPage";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
           </Route>
           <Route exact path="/gallery">
             <GalleryPage />
+          </Route>
+          <Route exact path="/blogg">
+            <BlogPage />
           </Route>
         </Switch>
       </BrowserRouter>

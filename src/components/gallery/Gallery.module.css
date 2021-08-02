@@ -16,3 +16,16 @@
 .image-container img:hover {
   cursor: pointer;
 }
+
+.loading-spinner-container {
+  display: inline-block;
+  width: 5rem;
+  left: 50vw;
+  top: 50vh;
+  transform: translate(-50%);
+  position: absolute;
+}
+
+.hidden {
+  display: none;
+}
