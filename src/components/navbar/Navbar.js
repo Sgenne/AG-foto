@@ -29,7 +29,7 @@ const Navbar = () => {
               <CategorySelector onMouseOver={galleryMouseOverHandler} onMouseOut={galleryMouseOutHandler} />
             </div>
         </div>
-        <Link to="/">Blogg</Link>
+        <Link to="/blogg">Blogg</Link>
         <Link to="/">Kontakt</Link>
       </div>
     </div>

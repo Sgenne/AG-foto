@@ -1,0 +1,17 @@
+.post-list {
+  width: 55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin: 0 auto;
+}
+
+.post-list__item {
+  margin-bottom: 6rem;
+}
+
+.post-list__separator {
+  margin-top: 2rem;
+  width: 110%;
+  transform: translate(-5%);
+}

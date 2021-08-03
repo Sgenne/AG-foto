@@ -5,8 +5,9 @@ const BlogPostList = (props) => {
   const { posts } = props;
 
   const postItems = posts.map((post) => (
-    <li key={post.id}>
+    <li className={styles["post-list__item"]} key={post.id}>
       <BlogPost post={post} />
+      <hr className={styles["post-list__separator"]}/>
     </li>
   ));
 
