@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import styles from "LinkDropdown.module.css";
+import styles from "./LinkDropdown.module.css";
 
 const DUMMY_LINKS = [
   {
@@ -13,14 +14,36 @@ const DUMMY_LINKS = [
   },
 ];
 
-const LinkDropdown = () => {
-  
-  // const dropdownLinks = DUMMY_LINKS.map()
-  
+const LinkDropdown = ({ title, path }) => {
+  const [isHovering, setIsHovering] = useState(false);
+
+  const mouseOverHandler = () => {
+    console.log("mouse over")
+    setIsHovering(true);
+  };
+
+  const mouseOutHandler = () => {
+    console.log("mouse out")
+    setIsHovering(false);
+  };
+
+  const dropdownLinks = DUMMY_LINKS.map((link) => (
+    <li className={styles["dropdown__link"]}
+     key={link.title}>
+      <Link to={link.path}>{link.title}</Link>
+    </li>
+  ));
+
   return (
-    <div className={styles["container"]}>
-      <Link></Link>
-      <div className={"dropdown"}></div>
+    <div
+      onMouseOver={mouseOverHandler}
+      onMouseOut={mouseOutHandler}
+      className={styles["container"]}
+    >
+      <Link to={path}>{title}</Link>
+      <div className={`${styles["dropdown"]} ${!isHovering ? styles["dropdown--hidden"] : ""}`}>
+        <ul>{dropdownLinks}</ul>
+      </div>
     </div>
   );
 };

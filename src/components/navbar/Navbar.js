@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 import styles from "./Navbar.module.css";
 import CategorySelector from "./CategorySelector";
+import LinkDropdown from "../UI/link-dropdown/LinkDropdown";
+
 
 const Navbar = () => {
   const [galleryCategoriesExpanded, setGalleryCategoriesExpanded] = useState(false);
@@ -29,7 +31,7 @@ const Navbar = () => {
               <CategorySelector onMouseOver={galleryMouseOverHandler} onMouseOut={galleryMouseOutHandler} />
             </div>
         </div>
-        <Link to="/blogg">Blogg</Link>
+        <LinkDropdown title="Blogg" path="/blogg" />
         <Link to="/">Kontakt</Link>
       </div>
     </div>

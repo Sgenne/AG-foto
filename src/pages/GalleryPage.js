@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 import FirebaseContext from "../store/firebase-context";
 import Gallery from "../components/gallery/Gallery";

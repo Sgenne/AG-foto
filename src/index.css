@@ -9,8 +9,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Frank Ruhl Libre", sans-serif;
-  /* position: fixed; */
-  /* border: 2px solid green; */
   width: 100vw;
   overflow-x: hidden;
 }

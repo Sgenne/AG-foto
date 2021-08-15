@@ -1,48 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+
 import BlogPostList from "../components/blog/BlogPostList";
 
-const DUMMY_POSTS = [
-  {
-    content: "This is the content",
-    id: 0,
-    title: "This is the title",
-    timestamp: "2021-08-02T19:43:36.932Z",
-  },
-  {
-    content: "Thissldjhskfjhkjhfb is the content",
-    id: 1,
-    title: "dTghdfgisd fgis tsdfshe title",
-    timestamp: "2021-08-02T19:43:36.932Z",
-  },
-  {
-    content: "This is sdlfgkjoiieryfthe content",
-    id: 2,
-    title: "This is the titghsdlkgjlskdjglsdfkgle",
-    timestamp: "2021-08-02T19:43:36.932Z",
-  },
-  {
-    content: "This is the contensfsfghfhgdghfhghddft",
-    id: 3,
-    title: "This isghjghjgh theölkjh tgitle",
-    timestamp: "2021-08-02T19:43:36.932Z",
-  },
-  {
-    content: "This is the qewrwertertycontent",
-    id: 4,
-    title: "Thisyrewert is the titlurtyeye",
-    timestamp: "2021-08-02T19:43:36.932Z",
-  },
-];
+import FirebaseContext from "../store/firebase-context";
+
+const NUMBER_OF_POSTS_TO_LOAD = 4;
 
 const BlogPage = () => {
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    // Temporary. Fetch from firebase instead.
-    setPosts(DUMMY_POSTS);
-  }, []);
+  const firebaseContext = useContext(FirebaseContext);
 
-  return <BlogPostList posts={posts} />;
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const fetchedPosts = await firebaseContext.getAllBlogPosts();
+      setPosts(fetchedPosts.posts.map(post => ({...post, display: false})));
+    };
+    fetchPosts();
+  }, [firebaseContext]);
+
+  return (
+    <BlogPostList numberOfPostsToLoad={NUMBER_OF_POSTS_TO_LOAD} posts={posts} />
+  );
 };
 
 export default BlogPage;

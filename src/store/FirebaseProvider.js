@@ -8,6 +8,7 @@ import FirebaseContext from "./firebase-context";
 const SCROLLING_IMAGES_PATH = "scrolling-images";
 const GALLERY_IMAGES_PATH = "gallery-images";
 const GALLERY_CATEGORIES_PATH = "gallery-categories";
+const BLOG_POSTS_PATH = "blog-posts";
 
 firebase.initializeApp({
   apiKey: "AIzaSyAX8L6EW_qA1hHJar-rA4VMX2m8DmhWc98",
@@ -23,13 +24,12 @@ firebase.initializeApp({
 const dbRef = firebase.database().ref();
 
 const FirebaseProvider = (props) => {
-  
   const getGalleryCategories = async () => {
-   const result = await dbRef.child(GALLERY_CATEGORIES_PATH).get();
-   const categories = result.val();
+    const result = await dbRef.child(GALLERY_CATEGORIES_PATH).get();
+    const categories = result.val();
 
-   return Object.values(categories)
-  }
+    return Object.values(categories);
+  };
 
   const getGalleryImages = async (category) => {
     try {
@@ -62,10 +62,6 @@ const FirebaseProvider = (props) => {
     }
   };
 
-  /**
-   * @async
-   * @returns {Promise} Promise object containing downloadable urls of scrolling images.
-   */
   const getScrollingImages = async () => {
     try {
       const images = await dbRef.child(SCROLLING_IMAGES_PATH).get();
@@ -76,11 +72,23 @@ const FirebaseProvider = (props) => {
     }
   };
 
+  const getAllBlogPosts = async () => {
+    try {
+      const posts = await dbRef.child(BLOG_POSTS_PATH).get();
+      return { posts: Object.values(posts.val()) };
+    } catch (error) {
+      return {
+        error,
+      };
+    }
+  };
+
   const firebaseContext = {
     getScrollingImages,
     getGalleryImages,
     getAllImages,
     getGalleryCategories,
+    getAllBlogPosts,
   };
 
   return (
