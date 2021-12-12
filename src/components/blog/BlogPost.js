@@ -1,11 +1,9 @@
-import { useState } from "react";
-
 import parser from "html-react-parser";
 
 import styles from "./BlogPost.module.css";
 
 const BlogPost = ({ post }) => {
-  const [displayPost, setDisplay] = useState(false)
+  //const [displayPost, setDisplay] = useState(false)
 
 
   const date = new Date(post.timestamp);

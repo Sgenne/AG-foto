@@ -23,6 +23,7 @@ const ImageCarousel = (props) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      console.log("tick");
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, IMAGE_DURATION);
 
@@ -30,19 +31,23 @@ const ImageCarousel = (props) => {
   }, [images]);
 
   useEffect(() => {
+    if (!images) {
+      return;
+    }
+    
     setDisplayedImages(
       images.map((image, index) => (
         <Transition
           in={index === currentImageIndex}
           timeout={TRANSITION_DURATION}
-          key={image.id}
+          key={image._id}
         >
           {(state) => {
             return (
               <div
                 className={`${styles["image-container"]} ${CURRENT_IMAGE_CLASSNAMES[state]}`}
               >
-                <img src={image["download-url"]} alt={ALT_TEXT} />
+                <img src={image.imageUrl} alt={ALT_TEXT} />
               </div>
             );
           }}
@@ -50,6 +55,10 @@ const ImageCarousel = (props) => {
       ))
     );
   }, [images, currentImageIndex]);
+
+  if (!images) {
+    return <div></div>;
+  }
 
   return <div className={styles["container"]}>{displayedImages}</div>;
 };

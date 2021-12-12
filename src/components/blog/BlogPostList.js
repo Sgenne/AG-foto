@@ -30,7 +30,7 @@ const BlogPostList = ({ posts, numberOfPostsToLoad }) => {
     //   "document.documentElement.offsetHeight",
     //   document.documentElement.offsetHeight
     // );
-  }, [posts, numberOfPostsToLoad]);
+  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler);

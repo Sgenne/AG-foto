@@ -1,24 +1,26 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import FirebaseContext from "../../store/firebase-context";
+import useBackend from "../../hooks/use-backend";
 import styles from "./CategorySelector.module.css";
 
 const CategorySelector = (props) => {
   const [categories, setCategories] = useState([]);
   const [currentImageSrc, setCurrentImageSrc] = useState(null);
 
-  const firebaseContext = useContext(FirebaseContext);
+  const { getGalleryCategories } = useBackend();
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const categories = await firebaseContext.getGalleryCategories();
-      setCategories(categories);
-      setCurrentImageSrc(categories[0]["category-image"]);
-    };
-    fetchCategories();
-  }, [firebaseContext]);
+    getGalleryCategories((result) => {
+      setCategories(result.categories);
 
+      // set currentImageSrc to first category image
+      setCurrentImageSrc(result.categories[0].previewImage.compressedImageUrl);
+    });
+  }, [getGalleryCategories]);
+
+  // When the mouse hovers over a link, the preview
+  // image of the corresponding category is shown.
   const linkHoverHandler = (imgSrc) => {
     setCurrentImageSrc(imgSrc);
   };
@@ -27,17 +29,28 @@ const CategorySelector = (props) => {
     return <div></div>;
   }
 
-  const categoryListContent = categories.map((category) => (
-    <div
-      className={styles["link-container"]}
-      onMouseOver={linkHoverHandler.bind(null, category["category-image"])}
-      key={category["category-name"]}
-    >
-      <Link to={`/gallery/${category["category-name"]}`}>{category["category-name"]}</Link>
-    </div>
-  ));
+  const categoryListContent = categories.map((category) => {
+    return (
+      <span
+        className={styles["link-container"]}
+        onMouseOver={() =>
+          linkHoverHandler(category.previewImage.compressedImageUrl)
+        }
+        key={category.title}
+      >
+        <Link to={`/gallery/${category.title.toLowerCase()}`}>
+          {category.title}
+        </Link>
+      </span>
+    );
+  });
 
-  const categoryImageContent = <img src={currentImageSrc} alt="category" />;
+  // the image of the last category to be hovered
+  const categoryImageContent = currentImageSrc ? (
+    <img src={currentImageSrc} alt="category" />
+  ) : (
+    <div></div>
+  );
 
   return (
     <div

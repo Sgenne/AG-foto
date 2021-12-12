@@ -1,30 +1,20 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import ImageCarousel from "../components/image-carousel/ImageCarousel";
 
-import FirebaseContext from "../store/firebase-context";
+import useBackend from "../hooks/use-backend";
 
 const FrontPage = () => {
-  const [scrollingImages, setScrollingImages] = useState([]);
-  const [errorOccured, setErrorOccured] = useState(false);
-  const firebaseContext = useContext(FirebaseContext);
+  const [scrollingImages, setScrollingImages] = useState();
+  const { getScrollingImages } = useBackend();
 
+  // load scrolling images from backend
   useEffect(() => {
-    const fetchScrollingImages = async () => {
-      const { images: scrollingImages, error } =
-        await firebaseContext.getScrollingImages();
-
-      if (error) {
-        setErrorOccured(true);
-      } else {
-        setScrollingImages(scrollingImages);
-      }
-    };
-    fetchScrollingImages();
-  }, [firebaseContext]);
-
-  if (errorOccured) {
-    return <div></div>
-  }
+    getScrollingImages((result) => {
+      if (!result.scrollingImages) return;
+      const scrollingImages = result.scrollingImages.map((img) => img.image);
+      setScrollingImages(scrollingImages);
+    });
+  }, [getScrollingImages]);
 
   return <ImageCarousel images={scrollingImages} />;
 };

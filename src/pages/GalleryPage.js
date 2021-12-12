@@ -10,6 +10,8 @@ const GalleryPage = () => {
 
   const { category } = useParams();
 
+  console.log("category: " + category);
+
   useEffect(() => {
     const fetchImages = async () => {
       const { images, error } = category
