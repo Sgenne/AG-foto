@@ -3,34 +3,31 @@ import { useParams } from "react-router-dom";
 
 import FirebaseContext from "../store/firebase-context";
 import Gallery from "../components/gallery/Gallery";
+import useBackend from "../hooks/use-backend";
+
 const GalleryPage = () => {
   const [galleryImages, setGalleryImages] = useState(null);
   const [errorOccured, setErrorOccured] = useState(false);
   const firebaseContext = useContext(FirebaseContext);
+  const { getImagesByCategory, error } = useBackend();
 
   const { category } = useParams();
 
-  console.log("category: " + category);
-
   useEffect(() => {
-    const fetchImages = async () => {
-      const { images, error } = category
-        ? await firebaseContext.getGalleryImages(category)
-        : await firebaseContext.getAllImages();
+    getImagesByCategory(category, (result) => {
+      const images = result.images.map((img) => img);
+      console.log("category: ", category);
+      console.log("images: ", images);
 
-      if (error) {
-        setErrorOccured(true);
-      } else {
+      if (images) {
         setGalleryImages(images);
       }
-    };
+    });
+  }, [getImagesByCategory, category]);
 
-    fetchImages();
-  }, [category, firebaseContext]);
-
-  if (errorOccured) {
+  if (error) {
     return (
-      <p className="error-message">Inga bilder hittades... Försök igen.</p>
+      <p className="error-message">Något gick fel... ¯\_(ツ)_/¯</p>
     );
   }
 

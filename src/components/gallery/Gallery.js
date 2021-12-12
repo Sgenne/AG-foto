@@ -36,10 +36,10 @@ const Gallery = ({ images }) => {
     if (!images) return;
     const mappedImages = images.map((image, index) => (
       <img
-        key={image.id}
-        src={image["preview-url"]}
-        alt={image.description}
-        onClick={imageClickedHandler.bind(null, index)}
+        key={image._id}
+        src={image.compressedImageUrl}
+        alt={image.category}
+        onClick={() => imageClickedHandler(index)}
         onLoad={imageIsLoadedHandler}
       />
     ));
@@ -49,6 +49,8 @@ const Gallery = ({ images }) => {
   }, [images]);
 
   const hideImages = !images || numberOfLoadedImages < images.length;
+
+  console.log("images in Gallery.js: ", images);
 
   return (
     <>

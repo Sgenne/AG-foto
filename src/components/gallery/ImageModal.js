@@ -70,7 +70,7 @@ const ImageModal = ({ image, onClose, onBackPressed, onForwardPressed }) => {
         </div>
         <img
           className={styles["image"]}
-          src={image["download-url"]}
+          src={image.imageUrl}
           alt={image.title}
           onLoad={imageLoadedHandler}
         />

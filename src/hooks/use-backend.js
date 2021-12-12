@@ -66,7 +66,7 @@ const useBackend = () => {
   );
 
   const getImagesByCategory = useCallback(
-    async (applyData, category) => {
+    async (category, applyData) => {
       _sendRequest(
         GET_IMAGES_BY_CATEGORY_URL + category,
         applyData,
