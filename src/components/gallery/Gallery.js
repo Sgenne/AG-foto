@@ -6,7 +6,7 @@ import ImageModal from "./ImageModal";
 const Gallery = ({ images }) => {
   const [galleryImages, setGalleryImages] = useState([]);
   const [showImageModal, setShowImageModal] = useState(false);
-  const [displayedImageIndex, setDisplayedImageIndex] = useState(0); // Index of image displayed in ImageModal.
+  const [displayedImageIndex, setDisplayedImageIndex] = useState(0);
   const [numberOfLoadedImages, setNumberOfLoadedImages] = useState(0);
 
   const imageClickedHandler = (index) => {
@@ -49,8 +49,6 @@ const Gallery = ({ images }) => {
   }, [images]);
 
   const hideImages = !images || numberOfLoadedImages < images.length;
-
-  console.log("images in Gallery.js: ", images);
 
   return (
     <>

@@ -1,0 +1,17 @@
+.front-page {
+    font-size: 20px;
+}
+
+.front-page__scrolling-images {
+    width: 80vw;
+    height: 70vh;
+    position: relative;
+    margin: auto;
+    margin-bottom: 2rem;
+}
+
+.front-page__introduction {
+    width: 60vw;
+    margin: auto;
+}
+
