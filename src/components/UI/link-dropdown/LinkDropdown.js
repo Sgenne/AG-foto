@@ -18,12 +18,10 @@ const LinkDropdown = ({ title, path }) => {
   const [isHovering, setIsHovering] = useState(false);
 
   const mouseOverHandler = () => {
-    console.log("mouse over")
     setIsHovering(true);
   };
 
   const mouseOutHandler = () => {
-    console.log("mouse out")
     setIsHovering(false);
   };
 

@@ -5,9 +5,9 @@ import styles from "./Navbar.module.css";
 import CategorySelector from "./CategorySelector";
 import LinkDropdown from "../UI/link-dropdown/LinkDropdown";
 
-
 const Navbar = () => {
-  const [galleryCategoriesExpanded, setGalleryCategoriesExpanded] = useState(false);
+  const [galleryCategoriesExpanded, setGalleryCategoriesExpanded] =
+    useState(false);
 
   const galleryMouseOverHandler = () => {
     setGalleryCategoriesExpanded(true);
@@ -18,8 +18,13 @@ const Navbar = () => {
   };
 
   return (
-    <div className={styles["container"]}>
-      <div className={styles["links-section"]}>
+    <div className={styles["navbar"]}>
+      <div className={styles["logo-container"]}>
+        <Link to="/">
+          <h1 className={styles["logo"]}>Ann-Marie Genne - Foto 🦨</h1>
+        </Link>
+      </div>
+      <div className={styles["links"]}>
         <Link to="/">Om</Link>
         <div
           onMouseOver={galleryMouseOverHandler}
@@ -27,9 +32,16 @@ const Navbar = () => {
           className={styles["dropdown-container"]}
         >
           <Link to="/gallery">Galleri</Link>
-            <div className={`${styles["category-dropdown"]} ${!galleryCategoriesExpanded ? styles["categories-hidden"] : ""}`}>
-              <CategorySelector onMouseOver={galleryMouseOverHandler} onMouseOut={galleryMouseOutHandler} />
-            </div>
+          <div
+            className={`${styles["dropdown"]} ${
+              !galleryCategoriesExpanded ? styles["dropdown-hidden"] : ""
+            }`}
+          >
+            <CategorySelector
+              onMouseOver={galleryMouseOverHandler}
+              onMouseOut={galleryMouseOutHandler}
+            />
+          </div>
         </div>
         <LinkDropdown title="Blogg" path="/blogg" />
         <Link to="/">Kontakt</Link>
