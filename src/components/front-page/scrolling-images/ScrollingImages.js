@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Transition } from "react-transition-group";
 
-import styles from "./ImageCarousel.module.css";
+import styles from "./ScrollingImages.module.css";
 
 const ALT_TEXT = "Ann-Marie Genne photography";
 
@@ -15,16 +15,31 @@ const CURRENT_IMAGE_CLASSNAMES = {
   exited: styles["exited"],
 };
 
-const ImageCarousel = ({ images }) => {
+const ScrollingImages = ({ images, onLoad }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [nUnloadedImages, setNUnloadedImages] = useState();
 
   useEffect(() => {
+    if (!images) return;
+
+    setNUnloadedImages(images.length);
+
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, IMAGE_DURATION);
 
     return () => clearInterval(interval);
   }, [images]);
+
+  useEffect(() => {
+    if (nUnloadedImages === 0) {
+      onLoad();
+    }
+  }, [nUnloadedImages, onLoad]);
+
+  const imageLoadedHandler = () => {
+    setNUnloadedImages((prevValue) => prevValue - 1);
+  };
 
   if (!images) {
     return <div></div>;
@@ -35,6 +50,7 @@ const ImageCarousel = ({ images }) => {
       in={index === currentImageIndex}
       timeout={TRANSITION_DURATION}
       key={image._id}
+      className={styles["transition"]}
     >
       {(state) => {
         return (
@@ -42,13 +58,17 @@ const ImageCarousel = ({ images }) => {
             className={`${styles["current-image"]} ${CURRENT_IMAGE_CLASSNAMES[state]}`}
             src={image.imageUrl}
             alt={ALT_TEXT}
+            onLoad={imageLoadedHandler}
+            style={{
+              objectFit: "cover",
+            }}
           />
         );
       }}
     </Transition>
   ));
 
-  return <div className={styles["image-carousel"]}>{displayedImages}</div>;
+  return <>{displayedImages}</>;
 };
 
-export default ImageCarousel;
+export default ScrollingImages;

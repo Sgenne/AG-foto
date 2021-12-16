@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ImageCarousel from "../components/front-page/image-carousel/ImageCarousel";
+import ScrollingImages from "../components/front-page/scrolling-images/ScrollingImages";
 import FrontPageComponent from "../components/front-page/FrontPage";
 
 import useBackend from "../hooks/use-backend";

@@ -1,12 +1,36 @@
-import ImageCarousel from "./image-carousel/ImageCarousel";
+import { useState } from "react";
+import Loader from "react-loader-spinner";
 
+import ScrollingImages from "./scrolling-images/ScrollingImages";
 import styles from "./FrontPage.module.css";
 
 const FrontPage = ({ scrollingImages, introductionText }) => {
+  const [scrollingImagesAreLoaded, setScrollingImagesAreLoaded] =
+    useState(false);
+
+  const scrollingImagesLoadedHandler = () => {
+    console.log("scrolling images are loaded!!!");
+    setScrollingImagesAreLoaded(true);
+  };
+
+  const scrollingImagesClassName = `${styles["front-page__scrolling-images"]} ${
+    scrollingImagesAreLoaded ? "" : styles["hidden"]
+  }`;
+
+  const loaderClassName = scrollingImagesAreLoaded
+    ? styles["hidden"]
+    : styles["loading-animation-container"];
+
   return (
     <div className={styles["front-page"]}>
-      <div className={styles["front-page__scrolling-images"]}>
-        <ImageCarousel images={scrollingImages} />
+      <div className={loaderClassName}>
+        <Loader type="TailSpin" color="#e1e1e1" height={100} width={100} />
+      </div>
+      <div className={scrollingImagesClassName}>
+        <ScrollingImages
+          images={scrollingImages}
+          onLoad={scrollingImagesLoadedHandler}
+        />
       </div>
       <div className={styles["front-page__introduction"]}>
         <p>

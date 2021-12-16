@@ -1,17 +1,27 @@
 .front-page {
-    font-size: 20px;
+  font-size: 20px;
+}
+
+.loading-animation-container {
+  display: flex;
+  height: 75vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden {
+  display: none;
 }
 
 .front-page__scrolling-images {
-    width: 85vw;
-    height: 75vh;
-    position: relative;
-    margin: auto;
-    margin-bottom: 2rem;
+  width: 85vw;
+  height: 75vh;
+  position: relative;
+  margin: auto;
+  margin-bottom: 2rem;
 }
 
 .front-page__introduction {
-    width: 60vw;
-    margin: auto;
+  width: 60vw;
+  margin: auto;
 }
-

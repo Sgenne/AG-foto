@@ -6,10 +6,6 @@
   display: inline-block;
 }
 
-.hidden {
-  display: none;
-}
-
 .image {
   height: 85vh;
   max-width: 90vw;
