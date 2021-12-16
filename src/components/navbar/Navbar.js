@@ -1,21 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import styles from "./Navbar.module.css";
-import CategorySelector from "./CategorySelector";
 import LinkDropdown from "../UI/link-dropdown/LinkDropdown";
+import ImageLinkDropdown from "../UI/link-dropdown/ImageLinkDropdown";
+import useBackend from "../../hooks/use-backend";
 
 const Navbar = () => {
-  const [galleryCategoriesExpanded, setGalleryCategoriesExpanded] =
-    useState(false);
+  const [galleryCategories, setGalleryCategories] = useState();
 
-  const galleryMouseOverHandler = () => {
-    setGalleryCategoriesExpanded(true);
-  };
+  const { getGalleryCategories } = useBackend();
 
-  const galleryMouseOutHandler = () => {
-    setGalleryCategoriesExpanded(false);
-  };
+  // load gallery categories to gallery dropdown
+  useEffect(() => {
+    getGalleryCategories((result) => {
+      const categories = result.categories.map((category) => ({
+        to: `/galleri/${category.title}`,
+        text: category.title,
+        imageUrl: category.previewImage.compressedImageUrl,
+      }));
+      setGalleryCategories(categories);
+    });
+  }, [getGalleryCategories]);
 
   return (
     <div className={styles["navbar"]}>
@@ -26,23 +32,10 @@ const Navbar = () => {
       </div>
       <div className={styles["links"]}>
         <Link to="/">Om</Link>
-        <div
-          onMouseOver={galleryMouseOverHandler}
-          onMouseOut={galleryMouseOutHandler}
-          className={styles["dropdown-container"]}
-        >
-          <Link to="/gallery">Galleri</Link>
-          <div
-            className={`${styles["dropdown"]} ${
-              !galleryCategoriesExpanded ? styles["dropdown-hidden"] : ""
-            }`}
-          >
-            <CategorySelector
-              onMouseOver={galleryMouseOverHandler}
-              onMouseOut={galleryMouseOutHandler}
-            />
-          </div>
-        </div>
+        <ImageLinkDropdown
+          topLink={{ to: "/galleri", text: "Galleri" }}
+          links={galleryCategories}
+        />
         <LinkDropdown title="Blogg" path="/blogg" />
         <Link to="/">Kontakt</Link>
       </div>
