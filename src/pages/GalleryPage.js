@@ -1,29 +1,21 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
+import { useState, useEffect } from "react";
 import Gallery from "../components/gallery/Gallery";
+
 import useBackend from "../hooks/use-backend";
 
 const GalleryPage = () => {
-  const [galleryImages, setGalleryImages] = useState(null);
-  const { getImagesByCategory, error } = useBackend();
+  const [images, setImages] = useState();
 
-  const { category } = useParams();
+  const { getAllGalleryImages } = useBackend();
 
   useEffect(() => {
-    getImagesByCategory(category, (result) => {
-      const images = result.images.map((img) => img);
-      if (images) {
-        setGalleryImages(images);
-      }
+    getAllGalleryImages((result) => {
+      console.log(result);
+      setImages(result.images);
     });
-  }, [getImagesByCategory, category]);
+  }, [getAllGalleryImages]);
 
-  if (error) {
-    return <p className="error-message">Något gick fel... ¯\_(ツ)_/¯</p>;
-  }
-
-  return <Gallery images={galleryImages} />;
+  return <Gallery images={images} />;
 };
 
 export default GalleryPage;

@@ -14,8 +14,9 @@
 }
 
 .front-page__scrolling-images {
-  width: 85vw;
+  /* width: 85vw; */
   height: 75vh;
+  aspect-ratio: 21/9;
   position: relative;
   margin: auto;
   margin-bottom: 2rem;

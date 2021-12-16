@@ -15,7 +15,7 @@ const Navbar = () => {
   useEffect(() => {
     getGalleryCategories((result) => {
       const categories = result.categories.map((category) => ({
-        to: `/galleri/${category.title}`,
+        to: `/galleri/${category.title.toLowerCase()}`,
         text: category.title,
         imageUrl: category.previewImage.compressedImageUrl,
       }));

@@ -43,7 +43,7 @@ const useBackend = () => {
     [_sendRequest]
   );
 
-  const getAllGalleryImage = useCallback(
+  const getAllGalleryImages = useCallback(
     async (applyData) => {
       _sendRequest(
         GET_ALL_GALLERY_IMAGES_URL,
@@ -122,7 +122,7 @@ const useBackend = () => {
 
   return {
     getScrollingImages,
-    getAllGalleryImage,
+    getAllGalleryImages,
     getGalleryCategories,
     getImagesByCategory,
     getBlogCategories,

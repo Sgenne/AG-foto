@@ -27,12 +27,11 @@ const ImageLinkDropdown = ({ topLink, links }) => {
     return <Link to={topLink.to}>{topLink.text}</Link>;
   }
 
-  console.log("current image url: ", currentImageUrl);
-
   const dropDownLinks = links.map((link) => (
     <li
       className={styles["dropdown__link"]}
       onMouseOver={() => linkHoverHandler(link)}
+      key={link.text}
     >
       <Link to={link.to}>{link.text}</Link>
     </li>
