@@ -17,19 +17,8 @@ const BlogPostList = ({ posts, numberOfPostsToLoad }) => {
       window.innerHeight + window.scrollY >=
       document.documentElement.offsetHeight * 0.95
     ) {
-      // setDisplayedPosts((prevPosts) =>
-      //   posts.slice(0, prevPosts.length + numberOfPostsToLoad)
-      // );
-      console.log("at bottom");
+      console.log("at bottom"); // add "onAtBottom"
     }
-    // console.log(
-    //   "window.innerHeight + window.scrollY",
-    //   window.innerHeight + window.scrollY
-    // );
-    // console.log(
-    //   "document.documentElement.offsetHeight",
-    //   document.documentElement.offsetHeight
-    // );
   }, []);
 
   useEffect(() => {

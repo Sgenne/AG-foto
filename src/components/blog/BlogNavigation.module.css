@@ -1,0 +1,40 @@
+.nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 1rem 0 1rem;
+    font-size: 20px;
+}
+
+.introduction {
+    width: 80%;
+    margin: 0 0 2rem 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.introduction img {
+    margin: 2rem;
+    width: 80%;
+    border-radius: 10%;
+}
+
+.links {
+    list-style: none;
+}
+
+.links a {
+    text-decoration: none;
+    color: grey;
+}
+
+.links a:visited {
+    color: grey;
+}
+
+
+.links a:hover {
+    color: black;
+}

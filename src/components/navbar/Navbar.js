@@ -24,7 +24,7 @@ const Navbar = () => {
   }, [getGalleryCategories]);
 
   return (
-    <div className={styles["navbar"]}>
+    <nav className={styles["navbar"]}>
       <div className={styles["logo-container"]}>
         <Link to="/">
           <h1 className={styles["logo"]}>Ann-Marie Genne - Foto 🦨</h1>
@@ -36,10 +36,10 @@ const Navbar = () => {
           topLink={{ to: "/galleri", text: "Galleri" }}
           links={galleryCategories}
         />
-        <LinkDropdown title="Blogg" path="/blogg" />
+        <Link to="/blogg">Blogg</Link>
         <Link to="/">Kontakt</Link>
       </div>
-    </div>
+    </nav>
   );
 };
 

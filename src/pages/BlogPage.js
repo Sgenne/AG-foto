@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 
-import BlogPostList from "../components/blog/BlogPostList";
+import Blog from "../components/blog/Blog";
 
 import FirebaseContext from "../store/firebase-context";
 
@@ -14,14 +14,12 @@ const BlogPage = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       const fetchedPosts = await firebaseContext.getAllBlogPosts();
-      setPosts(fetchedPosts.posts.map(post => ({...post, display: false})));
+      setPosts(fetchedPosts.posts.map((post) => ({ ...post, display: false })));
     };
     fetchPosts();
   }, [firebaseContext]);
 
-  return (
-    <BlogPostList numberOfPostsToLoad={NUMBER_OF_POSTS_TO_LOAD} posts={posts} />
-  );
+  return <Blog numberOfPostsToLoad={NUMBER_OF_POSTS_TO_LOAD} posts={posts} />;
 };
 
 export default BlogPage;
