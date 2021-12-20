@@ -13,14 +13,16 @@ const Navbar = () => {
 
   // load gallery categories to gallery dropdown
   useEffect(() => {
-    getGalleryCategories((result) => {
+    const fetchCategories = async () => {
+      const result = await getGalleryCategories();
       const categories = result.categories.map((category) => ({
         to: `/galleri/${category.title.toLowerCase()}`,
         text: category.title,
         imageUrl: category.previewImage.compressedImageUrl,
       }));
       setGalleryCategories(categories);
-    });
+    };
+    fetchCategories();
   }, [getGalleryCategories]);
 
   return (

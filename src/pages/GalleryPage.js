@@ -9,10 +9,11 @@ const GalleryPage = () => {
   const { getAllGalleryImages } = useBackend();
 
   useEffect(() => {
-    getAllGalleryImages((result) => {
-      console.log(result);
+    const fetchImages = async () => {
+      const result = await getAllGalleryImages();
       setImages(result.images);
-    });
+    };
+    fetchImages();
   }, [getAllGalleryImages]);
 
   return <Gallery images={images} />;

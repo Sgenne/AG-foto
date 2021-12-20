@@ -10,11 +10,13 @@ const FrontPage = () => {
 
   // load scrolling images from backend
   useEffect(() => {
-    getScrollingImages((result) => {
+    const fetchScrollingImages = async () => {
+      const result = await getScrollingImages();
       if (!result.scrollingImages) return;
       const scrollingImages = result.scrollingImages.map((img) => img.image);
       setScrollingImages(scrollingImages);
-    });
+    };
+    fetchScrollingImages();
   }, [getScrollingImages]);
 
   return (

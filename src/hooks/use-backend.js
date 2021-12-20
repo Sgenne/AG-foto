@@ -14,7 +14,7 @@ const useBackend = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
 
-  const _sendRequest = useCallback(async (url, applyData, errorMessage) => {
+  const _sendRequest = useCallback(async (url, errorMessage) => {
     setIsLoading(true);
     setError(null);
 
@@ -28,81 +28,58 @@ const useBackend = () => {
       setIsLoading(false);
       return;
     }
-    applyData(result);
     setIsLoading(false);
+    return result;
   }, []);
 
-  const getScrollingImages = useCallback(
-    async (applyData) => {
-      _sendRequest(
-        GET_SCROLLING_IMAGES_URL,
-        applyData,
-        "Kunde inte hämta bilder."
-      );
-    },
-    [_sendRequest]
-  );
+  const getScrollingImages = useCallback(async () => {
+    return _sendRequest(GET_SCROLLING_IMAGES_URL, "Kunde inte hämta bilder.");
+  }, [_sendRequest]);
 
-  const getAllGalleryImages = useCallback(
-    async (applyData) => {
-      _sendRequest(
-        GET_ALL_GALLERY_IMAGES_URL,
-        applyData,
-        "Kunde inte hämta bilder."
-      );
-    },
-    [_sendRequest]
-  );
+  const getAllGalleryImages = useCallback(async () => {
+    return _sendRequest(GET_ALL_GALLERY_IMAGES_URL, "Kunde inte hämta bilder.");
+  }, [_sendRequest]);
 
-  const getGalleryCategories = useCallback(
-    (applyData) => {
-      _sendRequest(
-        GET_GALLERY_CATEGORIES_URL,
-        applyData,
-        "Kunde inte hämta kategorier."
-      );
-    },
-    [_sendRequest]
-  );
+  const getGalleryCategories = useCallback(() => {
+    return _sendRequest(
+      GET_GALLERY_CATEGORIES_URL,
+
+      "Kunde inte hämta kategorier."
+    );
+  }, [_sendRequest]);
 
   const getImagesByCategory = useCallback(
-    async (category, applyData) => {
-      _sendRequest(
+    async (category) => {
+      return _sendRequest(
         GET_IMAGES_BY_CATEGORY_URL + category,
-        applyData,
+
         "Kunde inte hämta bilder."
       );
     },
     [_sendRequest]
   );
 
-  const getBlogCategories = useCallback(
-    async (applyData) => {
-      _sendRequest(
-        GET_BLOG_CATEGORIES_URL,
-        applyData,
-        "Kunde inte hämta kategorier."
-      );
-    },
-    [_sendRequest]
-  );
+  const getBlogCategories = useCallback(async () => {
+    return _sendRequest(
+      GET_BLOG_CATEGORIES_URL,
 
-  const getAllBlogPosts = useCallback(
-    async (applyData) => {
-      _sendRequest(
-        GET_ALL_BLOG_POSTS_URL,
-        applyData,
-        "Kunde inte hämta blogginlägg."
-      );
-    },
-    [_sendRequest]
-  );
+      "Kunde inte hämta kategorier."
+    );
+  }, [_sendRequest]);
+
+  const getAllBlogPosts = useCallback(async () => {
+    return _sendRequest(
+      GET_ALL_BLOG_POSTS_URL,
+
+      "Kunde inte hämta blogginlägg."
+    );
+  }, [_sendRequest]);
 
   const getBlogPostsByCategory = useCallback(
-    async (applyData, category) => {
-      _sendRequest(
+    async (category) => {
+      return _sendRequest(
         GET_BLOG_POSTS_BY_CATEGORY_URL + category,
-        applyData,
+
         "Kunde inte hämta blogginlägg."
       );
     },
@@ -110,10 +87,10 @@ const useBackend = () => {
   );
 
   const getBlogPostById = useCallback(
-    async (applyData, id) => {
-      _sendRequest(
+    async (id) => {
+      return _sendRequest(
         GET_BLOG_POST_BY_ID_URL + id,
-        applyData,
+
         "Kunde inte hämta blogginlägg."
       );
     },
