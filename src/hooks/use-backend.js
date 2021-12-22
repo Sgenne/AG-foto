@@ -5,9 +5,7 @@ const GET_SCROLLING_IMAGES_URL = `${HOST}/gallery/scrolling-images`;
 const GET_ALL_GALLERY_IMAGES_URL = `${HOST}/gallery/images`;
 const GET_GALLERY_CATEGORIES_URL = `${HOST}/gallery/categories`;
 const GET_IMAGES_BY_CATEGORY_URL = `${HOST}/gallery/images/`; // append category
-const GET_ALL_BLOG_POSTS_URL = `${HOST}/blog/posts`;
-const GET_BLOG_CATEGORIES_URL = `${HOST}/blog/categories`;
-const GET_BLOG_POSTS_BY_CATEGORY_URL = `${HOST}/blog/category/`; // append category
+const GET_BLOG_POSTS_URL = `${HOST}/blog/posts`;
 const GET_BLOG_POST_BY_ID_URL = `${HOST}/blog/post/`; // append id
 
 const useBackend = () => {
@@ -59,25 +57,15 @@ const useBackend = () => {
     [_sendRequest]
   );
 
-  const getBlogCategories = useCallback(async () => {
-    return _sendRequest(
-      GET_BLOG_CATEGORIES_URL,
-      "Kunde inte hämta kategorier."
-    );
-  }, [_sendRequest]);
-
   const getAllBlogPosts = useCallback(async () => {
-    return _sendRequest(
-      GET_ALL_BLOG_POSTS_URL,
-      "Kunde inte hämta blogginlägg."
-    );
+    return _sendRequest(GET_BLOG_POSTS_URL, "Kunde inte hämta blogginlägg.");
   }, [_sendRequest]);
 
-  const getBlogPostsByCategory = useCallback(
-    async (category) => {
+  const getBlogPostsByMonth = useCallback(
+    async (year, month) => {
       return _sendRequest(
-        GET_BLOG_POSTS_BY_CATEGORY_URL + category,
-        "Kunde inte hämta blogginlägg."
+        `${GET_BLOG_POSTS_URL}/${year}/${month}`,
+        "Kunde inte hämta blogginlägg"
       );
     },
     [_sendRequest]
@@ -98,9 +86,8 @@ const useBackend = () => {
     getAllGalleryImages,
     getGalleryCategories,
     getImagesByCategory,
-    getBlogCategories,
     getAllBlogPosts,
-    getBlogPostsByCategory,
+    getBlogPostsByMonth,
     getBlogPostById,
     isLoading,
     error,

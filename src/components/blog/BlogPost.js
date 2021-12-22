@@ -6,7 +6,7 @@ const BlogPost = ({ post }) => {
 
 
   const date = new Date(post.createdAt);
-  const [day, month, year] = [date.getDate(), date.getMonth(), date.getFullYear()];
+  const [day, month, year] = [date.getDate(), date.getMonth() + 1, date.getFullYear()];
 
 
   return (

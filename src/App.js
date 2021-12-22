@@ -24,6 +24,9 @@ function App() {
           <Route exact path="/blogg">
             <BlogPage />
           </Route>
+          <Route exact path="/blogg/:year/:month" >
+            <BlogPage />
+          </Route>
         </Switch>
       </BrowserRouter>
     </div>
