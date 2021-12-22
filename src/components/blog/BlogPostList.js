@@ -27,7 +27,7 @@ const BlogPostList = ({ posts, numberOfPostsToLoad }) => {
   }, [scrollHandler]);
 
   const postItems = displayedPosts.map((post) => (
-    <li className={styles["post-list__item"]} key={post.id}>
+    <li className={styles["post-list__item"]} key={post._id}>
       <BlogPost post={post} />
       <hr className={styles["post-list__separator"]} />
     </li>

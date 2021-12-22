@@ -9,13 +9,14 @@ const GalleryCategoryPage = () => {
   const { getImagesByCategory, error } = useBackend();
 
   const { category } = useParams();
-
   useEffect(() => {
-    getImagesByCategory(category, (result) => {
+    const fetchImages = async () => {
+      const result = await getImagesByCategory(category);
       if (result.images) {
         setGalleryImages(result.images);
       }
-    });
+    };
+    fetchImages();
   }, [getImagesByCategory, category]);
 
   if (error) {

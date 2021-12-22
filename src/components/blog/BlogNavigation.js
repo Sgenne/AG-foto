@@ -47,13 +47,14 @@ const DUMMY_LINKS = [
 
 const BlogNavigation = ({ portrait, links }) => {
   portrait = DUMMY_PORTRAIT;
-  links = DUMMY_LINKS;
 
-  const linkListItems = links.map((link) => (
-    <li className={styles["links__link"]}>
-      <Link to={link.to}>{link.text}</Link>
-    </li>
-  ));
+  const linkListItems = links
+    ? links.map((link) => (
+        <li className={styles["links__link"]} key={link.text}>
+          <Link to={link.to}>{link.text}</Link>
+        </li>
+      ))
+    : [];
 
   return (
     <nav className={styles["nav"]}>

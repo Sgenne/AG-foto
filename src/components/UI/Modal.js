@@ -8,7 +8,6 @@ const Modal = ({ children, onClose }) => {
     document.body.style.top = `-${scrollY}px`;
     return () => {
       const scrollY = document.body.style.top;
-      console.log(scrollY);
       document.body.style.position = "";
       document.body.style.top = "";
       window.scrollTo(0, parseInt(scrollY || "0") * -1);

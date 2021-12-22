@@ -62,7 +62,6 @@ const useBackend = () => {
   const getBlogCategories = useCallback(async () => {
     return _sendRequest(
       GET_BLOG_CATEGORIES_URL,
-
       "Kunde inte hämta kategorier."
     );
   }, [_sendRequest]);
@@ -70,7 +69,6 @@ const useBackend = () => {
   const getAllBlogPosts = useCallback(async () => {
     return _sendRequest(
       GET_ALL_BLOG_POSTS_URL,
-
       "Kunde inte hämta blogginlägg."
     );
   }, [_sendRequest]);
@@ -79,7 +77,6 @@ const useBackend = () => {
     async (category) => {
       return _sendRequest(
         GET_BLOG_POSTS_BY_CATEGORY_URL + category,
-
         "Kunde inte hämta blogginlägg."
       );
     },
@@ -90,7 +87,6 @@ const useBackend = () => {
     async (id) => {
       return _sendRequest(
         GET_BLOG_POST_BY_ID_URL + id,
-
         "Kunde inte hämta blogginlägg."
       );
     },

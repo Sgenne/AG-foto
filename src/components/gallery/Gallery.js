@@ -35,7 +35,6 @@ const Gallery = ({ images }) => {
   useEffect(() => {
     if (!images) return;
 
-    console.log(images);
 
     const mappedImages = images.map((image, index) => (
       <img
