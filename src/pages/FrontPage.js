@@ -5,7 +5,6 @@ import useBackend from "../hooks/use-backend";
 
 const FrontPage = () => {
   const [scrollingImages, setScrollingImages] = useState();
-  const [introductionText, setIntroductionText] = useState();
   const { getScrollingImages } = useBackend();
 
   // load scrolling images from backend
@@ -22,7 +21,6 @@ const FrontPage = () => {
   return (
     <FrontPageComponent
       scrollingImages={scrollingImages}
-      introductionText={introductionText}
     />
   );
 };

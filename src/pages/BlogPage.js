@@ -4,6 +4,11 @@ import Blog from "../components/blog/Blog";
 
 import useBackend from "../hooks/use-backend";
 
+const DUMMY_PORTRAIT = {
+  imageUrl:
+    "https://upload.wikimedia.org/wikipedia/commons/3/3a/Gorilla_Cin_Zoo_020.jpg",
+};
+
 const NUMBER_OF_POSTS_TO_LOAD = 4;
 
 const MONTHS = [
@@ -54,6 +59,7 @@ const BlogPage = () => {
       numberOfPostsToLoad={NUMBER_OF_POSTS_TO_LOAD}
       posts={posts}
       links={navigationLinks}
+      portrait={DUMMY_PORTRAIT}
     />
   );
 };

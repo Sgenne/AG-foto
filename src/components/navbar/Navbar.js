@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import styles from "./Navbar.module.css";
-import LinkDropdown from "../UI/link-dropdown/LinkDropdown";
 import ImageLinkDropdown from "../UI/link-dropdown/ImageLinkDropdown";
 import useBackend from "../../hooks/use-backend";
 
