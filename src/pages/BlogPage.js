@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import Blog from "../components/blog/Blog";
 
@@ -30,7 +30,7 @@ const BlogPage = () => {
   const [posts, setPosts] = useState([]);
   const [navigationLinks, setNavigationLinks] = useState(); // links appearing in sidebar to posts from different months
 
-  const { getAllBlogPosts, getBlogPostsByMonth } = useBackend();
+  const { getBlogPosts, getBlogPostsByMonth } = useBackend();
   const { year, month } = useParams();
 
   // fetch posts from backend
@@ -40,7 +40,7 @@ const BlogPage = () => {
       const { blogPosts, availableMonths } =
         year && month
           ? await getBlogPostsByMonth(year, month - 1)
-          : await getAllBlogPosts();
+          : await getBlogPosts();
 
       setPosts(blogPosts);
 
@@ -52,7 +52,17 @@ const BlogPage = () => {
       );
     };
     fetchAllBlogPosts();
-  }, [getAllBlogPosts, getBlogPostsByMonth, year, month]);
+  }, [getBlogPosts, getBlogPostsByMonth, year, month]);
+
+  const bottomReachedHandler = async () => {
+    const lastPost = posts[posts.length - 1];
+
+    const newPosts = await getBlogPosts(
+      NUMBER_OF_POSTS_TO_LOAD,
+      lastPost.createdAt.toISOString()
+    );
+    setPosts((prevPosts) => [...prevPosts, ...newPosts]);
+  };
 
   return (
     <Blog
@@ -60,6 +70,7 @@ const BlogPage = () => {
       posts={posts}
       links={navigationLinks}
       portrait={DUMMY_PORTRAIT}
+      onBottomReached={bottomReachedHandler}
     />
   );
 };

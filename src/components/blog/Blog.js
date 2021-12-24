@@ -3,8 +3,7 @@ import styles from "./Blog.module.css";
 import BlogNavigation from "./BlogNavigation";
 import BlogPostList from "./BlogPostList";
 
-const Blog = ({ posts, portrait, links }) => {
-
+const Blog = ({ posts, portrait, links, onBottomReached }) => {
   // scroll to top of page whenever a link is clicked
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -17,13 +16,13 @@ const Blog = ({ posts, portrait, links }) => {
         window.innerHeight + window.scrollY >=
         document.documentElement.offsetHeight * 0.95
       ) {
-        console.log("at bottom"); // add "onAtBottom" which loads more posts
+        onBottomReached();
       }
     };
 
     window.addEventListener("scroll", scrollHandler);
     return () => window.removeEventListener("scroll", scrollHandler);
-  }, []);
+  }, [onBottomReached]);
 
   return (
     <div className={styles["blog"]}>

@@ -57,9 +57,18 @@ const useBackend = () => {
     [_sendRequest]
   );
 
-  const getAllBlogPosts = useCallback(async () => {
-    return _sendRequest(GET_BLOG_POSTS_URL, "Kunde inte hämta blogginlägg.");
-  }, [_sendRequest]);
+  const getBlogPosts = useCallback(
+    async (numberOfPosts, latestDate) => {
+      let url = GET_BLOG_POSTS_URL;
+
+      if (numberOfPosts && latestDate) {
+        url = `${url}?numberOfPosts=${numberOfPosts}&latestDate=${latestDate}`;
+      }
+
+      return _sendRequest(url, "Kunde inte hämta blogginlägg.");
+    },
+    [_sendRequest]
+  );
 
   const getBlogPostsByMonth = useCallback(
     async (year, month) => {
@@ -86,7 +95,7 @@ const useBackend = () => {
     getAllGalleryImages,
     getGalleryCategories,
     getImagesByCategory,
-    getAllBlogPosts,
+    getBlogPosts,
     getBlogPostsByMonth,
     getBlogPostById,
     isLoading,
