@@ -29,8 +29,9 @@ const MONTHS = [
 const BlogPage = () => {
   const [posts, setPosts] = useState([]);
   const [navigationLinks, setNavigationLinks] = useState(); // links appearing in sidebar to posts from different months
+  const [reachedEndOfPosts, setReachedEndOfPosts] = useState(false);
 
-  const { getBlogPosts, getBlogPostsByMonth } = useBackend();
+  const { getBlogPosts, getBlogPostsByMonth, isLoading } = useBackend();
   const { year, month } = useParams();
 
   // fetch posts from backend
@@ -40,7 +41,7 @@ const BlogPage = () => {
       const { blogPosts, availableMonths } =
         year && month
           ? await getBlogPostsByMonth(year, month - 1)
-          : await getBlogPosts();
+          : await getBlogPosts({ numberOfPosts: NUMBER_OF_POSTS_TO_LOAD });
 
       setPosts(blogPosts);
 
@@ -55,13 +56,29 @@ const BlogPage = () => {
   }, [getBlogPosts, getBlogPostsByMonth, year, month]);
 
   const bottomReachedHandler = async () => {
+    if (isLoading || reachedEndOfPosts || !posts || posts.length === 0) return;
+
+    // only posts from before the last current post should be fetched
     const lastPost = posts[posts.length - 1];
 
-    const newPosts = await getBlogPosts(
-      NUMBER_OF_POSTS_TO_LOAD,
-      lastPost.createdAt.toISOString()
-    );
-    setPosts((prevPosts) => [...prevPosts, ...newPosts]);
+    console.log("reachedEndOfPosts: ", reachedEndOfPosts);
+
+    const newPosts = await getBlogPosts({
+      numberOfPosts: NUMBER_OF_POSTS_TO_LOAD,
+      latestDate: lastPost.createdAt,
+    });
+
+    console.log("newPosts.length: ", newPosts.length);
+    console.log("NUMBER_OF_POSTS_TO_LOAD: ", NUMBER_OF_POSTS_TO_LOAD);
+
+    // if the number of received posts is smaller than the number asked for,
+    // then we must have reached the end of the blog posts
+    if (newPosts.blogPosts.length < NUMBER_OF_POSTS_TO_LOAD) {
+      setReachedEndOfPosts(true);
+    }
+
+    // append fetched posts to the list of posts
+    setPosts((prevPosts) => [...prevPosts, ...newPosts.blogPosts]);
   };
 
   return (
@@ -71,6 +88,8 @@ const BlogPage = () => {
       links={navigationLinks}
       portrait={DUMMY_PORTRAIT}
       onBottomReached={bottomReachedHandler}
+      reachedEndOfPosts={reachedEndOfPosts}
+      isLoading={isLoading}
     />
   );
 };

@@ -58,11 +58,20 @@ const useBackend = () => {
   );
 
   const getBlogPosts = useCallback(
-    async (numberOfPosts, latestDate) => {
+    async (requestQueries) => {
       let url = GET_BLOG_POSTS_URL;
 
-      if (numberOfPosts && latestDate) {
-        url = `${url}?numberOfPosts=${numberOfPosts}&latestDate=${latestDate}`;
+      // if requestQueries were provided, append them to the url
+      if (requestQueries && Object.keys(requestQueries).length > 0) {
+        const queries = [];
+
+        for (const parameter of Object.keys(requestQueries)) {
+          queries.push(`${parameter}=${requestQueries[parameter]}`);
+        }
+
+        const queriesString = "?" + queries.join("&");
+
+        url = url + queriesString;
       }
 
       return _sendRequest(url, "Kunde inte hämta blogginlägg.");
