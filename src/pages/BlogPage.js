@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Blog from "../components/blog/Blog";
 
@@ -53,32 +53,31 @@ const BlogPage = () => {
       );
     };
     fetchAllBlogPosts();
+    setReachedEndOfPosts(false);
   }, [getBlogPosts, getBlogPostsByMonth, year, month]);
 
   const bottomReachedHandler = async () => {
+
     if (isLoading || reachedEndOfPosts || !posts || posts.length === 0) return;
+
 
     // only posts from before the last current post should be fetched
     const lastPost = posts[posts.length - 1];
 
-    console.log("reachedEndOfPosts: ", reachedEndOfPosts);
-
-    const newPosts = await getBlogPosts({
+    const { blogPosts } = await getBlogPosts({
       numberOfPosts: NUMBER_OF_POSTS_TO_LOAD,
       latestDate: lastPost.createdAt,
     });
 
-    console.log("newPosts.length: ", newPosts.length);
-    console.log("NUMBER_OF_POSTS_TO_LOAD: ", NUMBER_OF_POSTS_TO_LOAD);
 
     // if the number of received posts is smaller than the number asked for,
     // then we must have reached the end of the blog posts
-    if (newPosts.blogPosts.length < NUMBER_OF_POSTS_TO_LOAD) {
+    if (blogPosts.length < NUMBER_OF_POSTS_TO_LOAD) {
       setReachedEndOfPosts(true);
     }
 
     // append fetched posts to the list of posts
-    setPosts((prevPosts) => [...prevPosts, ...newPosts.blogPosts]);
+    setPosts((prevPosts) => [...prevPosts, ...blogPosts]);
   };
 
   return (

@@ -32,8 +32,6 @@ const Blog = ({
     return () => window.removeEventListener("scroll", scrollHandler);
   }, [onBottomReached]);
 
-  console.log("isLoading: ", isLoading)
-
   return (
     <>
       <div className={styles["blog"]}>
