@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+
 import styles from "./ImageLinkDropdown.module.css";
+import NavigationLink from "../NavigationLink";
 
 const ImageLinkDropdown = ({ topLink, links }) => {
   const [currentImageUrl, setCurrentImageUrl] = useState();
@@ -24,16 +25,15 @@ const ImageLinkDropdown = ({ topLink, links }) => {
   };
 
   if (!links) {
-    return <Link to={topLink.to}>{topLink.text}</Link>;
+    return <NavigationLink to={topLink.to}>{topLink.text}</NavigationLink>;
   }
 
   const dropDownLinks = links.map((link) => (
     <li
-      className={styles["dropdown__link"]}
       onMouseOver={() => linkHoverHandler(link)}
       key={link.text}
     >
-      <Link to={link.to}>{link.text}</Link>
+      <NavigationLink to={link.to}>{link.text}</NavigationLink>
     </li>
   ));
 
@@ -57,7 +57,7 @@ const ImageLinkDropdown = ({ topLink, links }) => {
       onMouseOver={mouseOverContainerHandler}
       onMouseOut={mouseOutContainerHandler}
     >
-      <Link to={topLink.to}>{topLink.text}</Link>
+      <NavigationLink to={topLink.to}>{topLink.text}</NavigationLink>
       <div className={dropdownClassName}>
         <ul className={styles["dropdown__links"]}>{dropDownLinks}</ul>
         <div className={styles["dropdown__image-container"]}>

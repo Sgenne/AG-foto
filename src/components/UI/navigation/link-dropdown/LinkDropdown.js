@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import NavigationLink from "../NavigationLink";
 
 import styles from "./LinkDropdown.module.css";
 
@@ -27,7 +27,7 @@ const LinkDropdown = ({ title, path }) => {
 
   const dropdownLinks = DUMMY_LINKS.map((link) => (
     <li className={styles["dropdown__link"]} key={link.title}>
-      <Link to={link.path}>{link.title}</Link>
+      <NavigationLink to={link.path}>{link.title}</NavigationLink>
     </li>
   ));
 
@@ -37,7 +37,7 @@ const LinkDropdown = ({ title, path }) => {
       onMouseOut={mouseOutHandler}
       className={styles["container"]}
     >
-      <Link to={path}>{title}</Link>
+      <NavigationLink to={path}>{title}</NavigationLink>
       <div
         className={`${styles["dropdown"]} ${
           !isHovering ? styles["dropdown--hidden"] : ""

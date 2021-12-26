@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 import styles from "./Navbar.module.css";
-import ImageLinkDropdown from "../UI/link-dropdown/ImageLinkDropdown";
+import ImageLinkDropdown from "../UI/navigation/link-dropdown/ImageLinkDropdown";
 import useBackend from "../../hooks/use-backend";
+import NavigationLink from "../UI/navigation/NavigationLink";
 
 const Navbar = () => {
   const [galleryCategories, setGalleryCategories] = useState();
@@ -27,18 +27,18 @@ const Navbar = () => {
   return (
     <nav className={styles["navbar"]}>
       <div className={styles["logo-container"]}>
-        <Link to="/">
+        <NavigationLink to="/">
           <h1 className={styles["logo"]}>Ann-Marie Genne - Foto 🦨</h1>
-        </Link>
+        </NavigationLink>
       </div>
       <div className={styles["links"]}>
-        <Link to="/">Om</Link>
+        <NavigationLink to="/">Om</NavigationLink>
         <ImageLinkDropdown
           topLink={{ to: "/galleri", text: "Galleri" }}
           links={galleryCategories}
         />
-        <Link to="/blogg">Blogg</Link>
-        <Link to="/">Kontakt</Link>
+        <NavigationLink to="/blogg">Blogg</NavigationLink>
+        <NavigationLink to="/">Kontakt</NavigationLink>
       </div>
     </nav>
   );

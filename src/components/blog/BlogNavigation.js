@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import NavigationLink from "../UI/navigation/NavigationLink";
 import styles from "./BlogNavigation.module.css";
 
 const DUMMY_INTRODUCTION = {
@@ -10,11 +10,10 @@ const DUMMY_INTRODUCTION = {
 };
 
 const BlogNavigation = ({ portrait, links }) => {
-
   const linkListItems = links
     ? links.map((link) => (
-        <li className={styles["links__link"]} key={link.text}>
-          <Link to={link.to}>{link.text}</Link>
+        <li key={link.text}>
+          <NavigationLink to={link.to}>{link.text}</NavigationLink>
         </li>
       ))
     : [];
