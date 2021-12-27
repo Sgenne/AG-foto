@@ -5,6 +5,7 @@ import FrontPage from "./pages/FrontPage";
 import GalleryPage from "./pages/GalleryPage";
 import GalleryCategoryPage from "./pages/GalleryCategoryPage";
 import BlogPage from "./pages/BlogPage";
+import AboutMePage from "./pages/AboutMePage";
 
 function App() {
   return (
@@ -24,8 +25,11 @@ function App() {
           <Route exact path="/blogg">
             <BlogPage />
           </Route>
-          <Route exact path="/blogg/:year/:month" >
+          <Route exact path="/blogg/:year/:month">
             <BlogPage />
+          </Route>
+          <Route exact path="/om-mig">
+            <AboutMePage />
           </Route>
         </Switch>
       </BrowserRouter>

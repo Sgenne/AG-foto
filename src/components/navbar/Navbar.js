@@ -32,7 +32,7 @@ const Navbar = () => {
         </NavigationLink>
       </div>
       <div className={styles["links"]}>
-        <NavigationLink to="/">Om</NavigationLink>
+        <NavigationLink to="/om-mig">Om mig</NavigationLink>
         <ImageLinkDropdown
           topLink={{ to: "/galleri", text: "Galleri" }}
           links={galleryCategories}
