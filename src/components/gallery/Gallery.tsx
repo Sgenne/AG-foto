@@ -1,15 +1,20 @@
 import { useState, useEffect } from "react";
 import Loader from "react-loader-spinner";
-import styles from "./Gallery.module.css";
+import { Image } from "../../model/image.interface";
+import "./Gallery.module.css";
 import ImageModal from "./ImageModal";
 
-const Gallery = ({ images }) => {
-  const [galleryImages, setGalleryImages] = useState([]);
+interface GalleryProps {
+  images: Image[];
+}
+
+const Gallery = ({ images }: GalleryProps) => {
+  const [galleryImages, setGalleryImages] = useState<Image[]>([]);
   const [showImageModal, setShowImageModal] = useState(false);
   const [displayedImageIndex, setDisplayedImageIndex] = useState(0);
   const [numberOfLoadedImages, setNumberOfLoadedImages] = useState(0);
 
-  const imageClickedHandler = (index) => {
+  const imageClickedHandler = (index: number) => {
     setDisplayedImageIndex(index);
     setShowImageModal(true);
   };
@@ -35,7 +40,6 @@ const Gallery = ({ images }) => {
   useEffect(() => {
     if (!images) return;
 
-
     const mappedImages = images.map((image, index) => (
       <img
         key={image._id}
@@ -54,14 +58,10 @@ const Gallery = ({ images }) => {
 
   return (
     <>
-      <div
-        className={`${
-          hideImages ? styles["loading-spinner-container"] : styles["hidden"]
-        }`}
-      >
+      <div className={`${hideImages ? "loading-spinner-container" : "hidden"}`}>
         <Loader type="TailSpin" color="#000000" height={100} width={100} />
       </div>
-      <div className={`${hideImages ? styles["hidden"] : ""}`}>
+      <div className={`${hideImages ? "hidden" : ""}`}>
         {showImageModal && (
           <ImageModal
             onBackPressed={backPressedHandler}
@@ -70,7 +70,7 @@ const Gallery = ({ images }) => {
             image={images[displayedImageIndex]}
           />
         )}
-        <div className={styles["image-container"]}>{galleryImages}</div>
+        <div className="image-container">{galleryImages}</div>
       </div>
     </>
   );

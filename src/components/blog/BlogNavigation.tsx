@@ -1,5 +1,7 @@
+import { Image } from "../../model/image.interface";
+import { Link } from "../../model/link.interface";
 import NavigationLink from "../UI/navigation/NavigationLink";
-import styles from "./BlogNavigation.module.css";
+import "./BlogNavigation.css";
 
 const DUMMY_INTRODUCTION = {
   text: `Man make. Above us fifth was sixth sea his herb moved you'll the us void also for cattle moved. Face so that likeness. Hath winged also.
@@ -9,7 +11,12 @@ const DUMMY_INTRODUCTION = {
   Lesser itself Made midst of green appear i. Have image they're fowl a for Man. Appear, night day saw moved man. Moveth creature deep isn't lights.`,
 };
 
-const BlogNavigation = ({ portrait, links }) => {
+interface BlogNavigationProps {
+  portrait: Image;
+  links: Link[];
+}
+
+const BlogNavigation = ({ portrait, links }: BlogNavigationProps) => {
   const linkListItems = links
     ? links.map((link) => (
         <li key={link.text}>
@@ -19,12 +26,12 @@ const BlogNavigation = ({ portrait, links }) => {
     : [];
 
   return (
-    <nav className={styles["nav"]}>
-      <div className={styles["introduction"]}>
-        <img src={portrait.imageUrl} alt="photographer" />
+    <nav className="nav">
+      <div className="introduction">
+        <img src={portrait.imageUrl} alt={portrait.alt} />
         <p>{DUMMY_INTRODUCTION.text}</p>
       </div>
-      <ul className={styles["links"]}>{linkListItems}</ul>
+      <ul className="links">{linkListItems}</ul>
     </nav>
   );
 };

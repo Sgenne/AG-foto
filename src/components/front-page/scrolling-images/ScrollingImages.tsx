@@ -1,23 +1,29 @@
 import { useEffect, useState } from "react";
 import { Transition } from "react-transition-group";
+import { Image } from "../../../model/image.interface";
 
-import styles from "./ScrollingImages.module.css";
+import "./ScrollingImages.css";
 
 const ALT_TEXT = "Ann-Marie Genne photography";
 
 const TRANSITION_DURATION = 2000;
 const IMAGE_DURATION = 8000;
 
-const CURRENT_IMAGE_CLASSNAMES = {
-  entering: styles["entering"],
-  entered: styles["entered"],
-  exiting: styles["exiting"],
-  exited: styles["exited"],
+const CURRENT_IMAGE_CLASSNAMES: { [key: string]: string } = {
+  entering: "entering",
+  entered: "entered",
+  exiting: "exiting",
+  exited: "exited",
 };
 
-const ScrollingImages = ({ images, onLoad }) => {
+interface ScrollingImagesProps {
+  images: Image[];
+  onLoad: () => void;
+}
+
+const ScrollingImages = ({ images, onLoad }: ScrollingImagesProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [nUnloadedImages, setNUnloadedImages] = useState();
+  const [nUnloadedImages, setNUnloadedImages] = useState(Infinity);
 
   useEffect(() => {
     if (!images) return;
@@ -50,12 +56,12 @@ const ScrollingImages = ({ images, onLoad }) => {
       in={index === currentImageIndex}
       timeout={TRANSITION_DURATION}
       key={image._id}
-      className={styles["transition"]}
+      className="transition"
     >
       {(state) => {
         return (
           <img
-            className={`${styles["current-image"]} ${CURRENT_IMAGE_CLASSNAMES[state]}`}
+            className={`current-image ${CURRENT_IMAGE_CLASSNAMES[state]}`}
             src={image.imageUrl}
             alt={ALT_TEXT}
             onLoad={imageLoadedHandler}

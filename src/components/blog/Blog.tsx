@@ -1,8 +1,20 @@
 import { useEffect } from "react";
 import Loader from "react-loader-spinner";
-import styles from "./Blog.module.css";
+import { BlogPost } from "../../model/blogPost.interface";
+import { Image } from "../../model/image.interface";
+import { Link } from "../../model/link.interface";
+import "./Blog.css";
 import BlogNavigation from "./BlogNavigation";
 import BlogPostList from "./BlogPostList";
+
+interface BlogProps {
+  posts: BlogPost[];
+  portrait: Image;
+  links: Link[];
+  onBottomReached: () => void;
+  reachedEndOfPosts: boolean;
+  isLoading: boolean;
+}
 
 const Blog = ({
   posts,
@@ -11,7 +23,7 @@ const Blog = ({
   onBottomReached,
   reachedEndOfPosts,
   isLoading,
-}) => {
+}: BlogProps) => {
   // scroll to top of page whenever a link is clicked
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -34,16 +46,16 @@ const Blog = ({
 
   return (
     <>
-      <div className={styles["blog"]}>
-        <div className={styles["blog-posts"]}>
+      <div className="blog">
+        <div className="blog-posts">
           <BlogPostList posts={posts} />
         </div>
-        <div className={styles["navigation"]}>
+        <div className="navigation">
           <BlogNavigation portrait={portrait} links={links} />
         </div>
       </div>
       {isLoading ? (
-        <div className={styles["loader-container"]}>
+        <div className="loader-container">
           <Loader type="TailSpin" color="#e1e1e1" height={100} width={100} />
         </div>
       ) : (

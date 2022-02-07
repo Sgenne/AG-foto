@@ -2,9 +2,15 @@ import { useState } from "react";
 import Loader from "react-loader-spinner";
 
 import ScrollingImages from "./scrolling-images/ScrollingImages";
-import styles from "./FrontPage.module.css";
+import "./FrontPage.css";
+import { Image } from "../../model/image.interface";
 
-const FrontPage = ({ scrollingImages, introductionText }) => {
+interface FrontPageProps {
+  scrollingImages: Image[];
+  introductionText: string;
+}
+
+const FrontPage = ({ scrollingImages, introductionText }: FrontPageProps) => {
   const [scrollingImagesAreLoaded, setScrollingImagesAreLoaded] =
     useState(false);
 
@@ -12,16 +18,16 @@ const FrontPage = ({ scrollingImages, introductionText }) => {
     setScrollingImagesAreLoaded(true);
   };
 
-  const scrollingImagesClassName = `${styles["front-page__scrolling-images"]} ${
-    scrollingImagesAreLoaded ? "" : styles["hidden"]
+  const scrollingImagesClassName = `front-page__scrolling-images ${
+    scrollingImagesAreLoaded ? "" : "hidden"
   }`;
 
   const loaderClassName = scrollingImagesAreLoaded
-    ? styles["hidden"]
-    : styles["loading-animation-container"];
+    ? "hidden"
+    : "loading-animation-container";
 
   return (
-    <div className={styles["front-page"]}>
+    <div className="front-page">
       <div className={loaderClassName}>
         <Loader type="TailSpin" color="#e1e1e1" height={100} width={100} />
       </div>
@@ -31,7 +37,7 @@ const FrontPage = ({ scrollingImages, introductionText }) => {
           onLoad={scrollingImagesLoadedHandler}
         />
       </div>
-      <div className={styles["front-page__introduction"]}>
+      <div className="front-page__introduction">
         <p>
           A wonderful serenity has taken possession of my entire soul, like
           these sweet mornings of spring which I enjoy with my whole heart. I am
