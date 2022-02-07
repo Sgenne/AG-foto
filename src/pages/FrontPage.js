@@ -11,6 +11,7 @@ const FrontPage = () => {
   useEffect(() => {
     const fetchScrollingImages = async () => {
       const result = await getScrollingImages();
+      console.log(result);
       if (!result.scrollingImages) return;
       const scrollingImages = result.scrollingImages.map((img) => img.image);
       setScrollingImages(scrollingImages);

@@ -20,7 +20,7 @@ const useBackend = () => {
 
     try {
       const response = await fetch(url);
-      result = JSON.parse(await response.json());
+      result = await response.json();
     } catch (err) {
       setError(errorMessage);
       setIsLoading(false);
