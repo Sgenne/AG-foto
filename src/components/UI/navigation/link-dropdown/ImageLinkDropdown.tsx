@@ -1,14 +1,24 @@
 import { useState, useEffect } from "react";
 
-import styles from "./ImageLinkDropdown.module.css";
+import "./ImageLinkDropdown.css";
 import NavigationLink from "../NavigationLink";
+import { Link } from "../../../../model/link.interface";
 
-const ImageLinkDropdown = ({ topLink, links }) => {
-  const [currentImageUrl, setCurrentImageUrl] = useState();
+interface ImageLink extends Link {
+  imageUrl: string;
+}
+
+interface ImageLinkDropdownProps {
+  topLink: Link;
+  links: ImageLink[];
+}
+
+const ImageLinkDropdown = ({ topLink, links }: ImageLinkDropdownProps) => {
+  const [currentImageUrl, setCurrentImageUrl] = useState<string>();
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    if (!links) return;
+    if (!links || links.length === 0) return;
     setCurrentImageUrl(links[0].imageUrl);
   }, [links]);
 
@@ -20,7 +30,7 @@ const ImageLinkDropdown = ({ topLink, links }) => {
     setIsHovering(false);
   };
 
-  const linkHoverHandler = (link) => {
+  const linkHoverHandler = (link: ImageLink) => {
     setCurrentImageUrl(link.imageUrl);
   };
 
@@ -29,40 +39,31 @@ const ImageLinkDropdown = ({ topLink, links }) => {
   }
 
   const dropDownLinks = links.map((link) => (
-    <li
-      onMouseOver={() => linkHoverHandler(link)}
-      key={link.text}
-    >
+    <li onMouseOver={() => linkHoverHandler(link)} key={link.text}>
       <NavigationLink to={link.to}>{link.text}</NavigationLink>
     </li>
   ));
 
   const currentImage = currentImageUrl ? (
-    <img
-      className={styles["dropdown__image"]}
-      src={currentImageUrl}
-      alt="category"
-    />
+    <img className="dropdown__image" src={currentImageUrl} alt="category" />
   ) : (
     <div></div>
   );
 
-  const dropdownClassName = `${styles["dropdown"]} ${
-    isHovering ? styles["dropdown--extended"] : ""
+  const dropdownClassName = `dropdown ${
+    isHovering ? "dropdown--extended" : ""
   }`;
 
   return (
     <div
-      className={styles["container"]}
+      className="container"
       onMouseOver={mouseOverContainerHandler}
       onMouseOut={mouseOutContainerHandler}
     >
       <NavigationLink to={topLink.to}>{topLink.text}</NavigationLink>
       <div className={dropdownClassName}>
-        <ul className={styles["dropdown__links"]}>{dropDownLinks}</ul>
-        <div className={styles["dropdown__image-container"]}>
-          {currentImage}
-        </div>
+        <ul className="dropdown__links">{dropDownLinks}</ul>
+        <div className="dropdown__image-container">{currentImage}</div>
       </div>
     </div>
   );

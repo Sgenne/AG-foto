@@ -1,7 +1,7 @@
 import { useState } from "react";
 import NavigationLink from "../NavigationLink";
 
-import styles from "./LinkDropdown.module.css";
+import "./LinkDropdown.css";
 
 const DUMMY_LINKS = [
   {
@@ -14,7 +14,12 @@ const DUMMY_LINKS = [
   },
 ];
 
-const LinkDropdown = ({ title, path }) => {
+interface LinkDropdownProps {
+  title: string;
+  path: string;
+}
+
+const LinkDropdown = ({ title, path }: LinkDropdownProps) => {
   const [isHovering, setIsHovering] = useState(false);
 
   const mouseOverHandler = () => {
@@ -26,7 +31,7 @@ const LinkDropdown = ({ title, path }) => {
   };
 
   const dropdownLinks = DUMMY_LINKS.map((link) => (
-    <li className={styles["dropdown__link"]} key={link.title}>
+    <li className="dropdown__link" key={link.title}>
       <NavigationLink to={link.path}>{link.title}</NavigationLink>
     </li>
   ));
@@ -35,14 +40,10 @@ const LinkDropdown = ({ title, path }) => {
     <div
       onMouseOver={mouseOverHandler}
       onMouseOut={mouseOutHandler}
-      className={styles["container"]}
+      className="container"
     >
       <NavigationLink to={path}>{title}</NavigationLink>
-      <div
-        className={`${styles["dropdown"]} ${
-          !isHovering ? styles["dropdown--hidden"] : ""
-        }`}
-      >
+      <div className={`dropdown ${!isHovering ? "dropdown--hidden" : ""}`}>
         <ul>{dropdownLinks}</ul>
       </div>
     </div>

@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 
-import styles from "./Navbar.module.css";
+import "./Navbar.css";
 import ImageLinkDropdown from "../UI/navigation/link-dropdown/ImageLinkDropdown";
 import useBackend from "../../hooks/use-backend";
 import NavigationLink from "../UI/navigation/NavigationLink";
+import { ImageCategory } from "../../model/ImageCategory";
+import { Image } from "../../model/image.interface";
 
 const Navbar = () => {
-  const [galleryCategories, setGalleryCategories] = useState();
+  const [galleryCategories, setGalleryCategories] = useState<
+    { imageUrl: string; text: string; to: string }[]
+  >([]);
 
   const { getGalleryCategories } = useBackend();
 
@@ -14,7 +18,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       const result = await getGalleryCategories();
-      const categories = result.categories.map((category) => ({
+      const categories = result.categories.map((category: ImageCategory) => ({
         to: `/galleri/${category.title.toLowerCase()}`,
         text: category.title,
         imageUrl: category.previewImage.compressedImageUrl,
@@ -25,13 +29,13 @@ const Navbar = () => {
   }, [getGalleryCategories]);
 
   return (
-    <nav className={styles["navbar"]}>
-      <div className={styles["logo-container"]}>
+    <nav className="navbar">
+      <div className="logo-container">
         <NavigationLink to="/">
-          <h1 className={styles["logo"]}>Ann-Marie Genne - Foto 🦨</h1>
+          <h1 className="logo">Ann-Marie Genne - Foto 🦨</h1>
         </NavigationLink>
       </div>
-      <div className={styles["links"]}>
+      <div className="links">
         <NavigationLink to="/om-mig">Om mig</NavigationLink>
         <ImageLinkDropdown
           topLink={{ to: "/galleri", text: "Galleri" }}

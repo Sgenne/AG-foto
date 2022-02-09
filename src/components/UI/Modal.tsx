@@ -1,7 +1,12 @@
 import { useEffect } from "react";
-import styles from "./Modal.module.css";
+import "./Modal.css";
 
-const Modal = ({ children, onClose }) => {
+interface ModalProps {
+  children: JSX.Element;
+  onClose: () => void;
+}
+
+const Modal = ({ children, onClose }: ModalProps) => {
   useEffect(() => {
     const scrollY = window.scrollY;
     document.body.style.position = "fixed";
@@ -16,10 +21,8 @@ const Modal = ({ children, onClose }) => {
 
   return (
     <>
-      <div className={styles["background"]} onClick={onClose} />
-      <div className={styles["modal-container"]}>
-        {children}
-      </div>
+      <div className="background" onClick={onClose} />
+      <div className="modal-container">{children}</div>
     </>
   );
 };

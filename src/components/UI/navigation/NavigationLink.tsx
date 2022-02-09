@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom";
 
-import styles from "./NavigationLink.module.css";
+import "./NavigationLink.css";
 
-const NavigationLink = ({ to, children }) => {
+interface NavigationLinkProps {
+  to: string;
+  children: JSX.Element | string;
+}
+
+const NavigationLink = ({ to, children }: NavigationLinkProps) => {
   return (
-    <span className={styles["container"]}>
+    <span className="container">
       <Link to={to}>{children}</Link>
     </span>
   );

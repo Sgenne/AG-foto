@@ -1,13 +1,26 @@
 import { useEffect, useCallback, useState } from "react";
 import Loader from "react-loader-spinner";
 
-import styles from "./ImageModal.module.css";
+import "./ImageModal.css";
 import Modal from "../UI/Modal";
 import BackArrow from "../UI/icons/BackArrow";
 import ForwardArrow from "../UI/icons/ForwardArrow";
 import CloseButton from "../UI/buttons/CloseButton";
+import { Image } from "../../model/image.interface";
 
-const ImageModal = ({ image, onClose, onBackPressed, onForwardPressed }) => {
+interface ImageModalProps {
+  image: Image;
+  onClose: () => void;
+  onBackPressed: () => void;
+  onForwardPressed: () => void;
+}
+
+const ImageModal = ({
+  image,
+  onClose,
+  onBackPressed,
+  onForwardPressed,
+}: ImageModalProps) => {
   const [imageIsLoaded, setImageIsLoaded] = useState(false);
 
   const keyPressedHandler = useCallback(
@@ -44,46 +57,37 @@ const ImageModal = ({ image, onClose, onBackPressed, onForwardPressed }) => {
 
   return (
     <Modal onClose={onClose}>
-      <div
-        className={
-          imageIsLoaded
-            ? styles["hidden"]
-            : styles["loading-animation-container"]
-        }
-      >
-        <Loader
-          type="TailSpin"
-          color="#e1e1e1"
-          height={100}
-          width={100}
-        />
-      </div>
-      <div
-        className={imageIsLoaded ? styles["image-container"] : styles["hidden"]}
-      >
+      <>
         <div
-          onKeyDown={keyPressedHandler}
-          onClick={onBackPressed}
-          className={`${styles["arrow-container"]} ${styles["back-arrow"]}`}
+          className={imageIsLoaded ? "hidden" : "loading-animation-container"}
         >
-          <BackArrow />
+          <Loader type="TailSpin" color="#e1e1e1" height={100} width={100} />
         </div>
-        <img
-          className={styles["image"]}
-          src={image.imageUrl}
-          alt={image.title}
-          onLoad={imageLoadedHandler}
-        />
-        <div className={styles["close-button"]}>
-          <CloseButton onClick={onClose} />
+        <div className={imageIsLoaded ? "image-container" : "hidden"}>
+          <div
+            onKeyDown={keyPressedHandler}
+            onClick={onBackPressed}
+            className="arrow-container back-arrow"
+          >
+            <BackArrow />
+          </div>
+          <img
+            className="image"
+            src={image.imageUrl}
+            alt={image.alt}
+            onLoad={imageLoadedHandler}
+          />
+          <div className="close-button">
+            <CloseButton onClick={onClose} />
+          </div>
+          <div
+            onClick={onForwardPressed}
+            className="arrow-container forward-arrow"
+          >
+            <ForwardArrow />
+          </div>
         </div>
-        <div
-          onClick={onForwardPressed}
-          className={`${styles["arrow-container"]} ${styles["forward-arrow"]}`}
-        >
-          <ForwardArrow />
-        </div>
-      </div>
+      </>
     </Modal>
   );
 };

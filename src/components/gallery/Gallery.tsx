@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Loader from "react-loader-spinner";
 import { Image } from "../../model/image.interface";
-import "./Gallery.module.css";
+import "./Gallery.css";
 import ImageModal from "./ImageModal";
 
 interface GalleryProps {
@@ -9,7 +9,6 @@ interface GalleryProps {
 }
 
 const Gallery = ({ images }: GalleryProps) => {
-  const [galleryImages, setGalleryImages] = useState<Image[]>([]);
   const [showImageModal, setShowImageModal] = useState(false);
   const [displayedImageIndex, setDisplayedImageIndex] = useState(0);
   const [numberOfLoadedImages, setNumberOfLoadedImages] = useState(0);
@@ -40,21 +39,21 @@ const Gallery = ({ images }: GalleryProps) => {
   useEffect(() => {
     if (!images) return;
 
-    const mappedImages = images.map((image, index) => (
-      <img
-        key={image._id}
-        src={image.compressedImageUrl}
-        alt={image.category}
-        onClick={() => imageClickedHandler(index)}
-        onLoad={imageIsLoadedHandler}
-      />
-    ));
-    setGalleryImages(mappedImages);
     setDisplayedImageIndex(0);
     setNumberOfLoadedImages(0);
   }, [images]);
 
   const hideImages = !images || numberOfLoadedImages < images.length;
+
+  const galleryImages = images.map((image, index) => (
+    <img
+      key={image._id}
+      src={image.compressedImageUrl}
+      alt={image.category}
+      onClick={() => imageClickedHandler(index)}
+      onLoad={imageIsLoadedHandler}
+    />
+  ));
 
   return (
     <>

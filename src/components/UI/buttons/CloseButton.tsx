@@ -1,14 +1,18 @@
-import styles from "./CloseButton.module.css";
+import "./CloseButton.css";
 import CloseImage from "../icons/CloseImage";
 
-const CloseButton = (props) => {
+interface CloseButtonProps {
+  onClick: () => void;
+}
+
+const CloseButton = ({ onClick }: CloseButtonProps) => {
   return (
-    <button className={styles["button"]} onClick={props.onClick}>
-      <span className={styles["icon"]}>
+    <button className="button" onClick={onClick}>
+      <span className="icon">
         <CloseImage />
       </span>
     </button>
-  )
-}
+  );
+};
 
-export default CloseButton
+export default CloseButton;

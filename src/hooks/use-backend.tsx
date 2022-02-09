@@ -10,11 +10,11 @@ const GET_BLOG_POST_BY_ID_URL = `${HOST}/blog/post/`; // append id
 
 const useBackend = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState<Error>();
 
   const _sendRequest = useCallback(async (url, errorMessage) => {
     setIsLoading(true);
-    setError(null);
+    setError(undefined);
 
     let result;
 

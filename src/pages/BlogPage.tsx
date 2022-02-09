@@ -3,9 +3,15 @@ import { useParams } from "react-router-dom";
 import Blog from "../components/blog/Blog";
 
 import useBackend from "../hooks/use-backend";
+import { BlogPost } from "../model/blogPost.interface";
+import { Link } from "../model/link.interface";
 
 const DUMMY_PORTRAIT = {
+  category: "sjdskdjfh",
+  _id: "sldkjfhdskjfhsdkfjhfdk",
   imageUrl:
+    "https://upload.wikimedia.org/wikipedia/commons/3/3a/Gorilla_Cin_Zoo_020.jpg",
+  compressedImageUrl:
     "https://upload.wikimedia.org/wikipedia/commons/3/3a/Gorilla_Cin_Zoo_020.jpg",
 };
 
@@ -27,12 +33,12 @@ const MONTHS = [
 ];
 
 const BlogPage = () => {
-  const [posts, setPosts] = useState([]);
-  const [navigationLinks, setNavigationLinks] = useState(); // links appearing in sidebar to posts from different months
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [navigationLinks, setNavigationLinks] = useState<Link[]>([]); // links appearing in sidebar to posts from different months
   const [reachedEndOfPosts, setReachedEndOfPosts] = useState(false);
 
   const { getBlogPosts, getBlogPostsByMonth, isLoading } = useBackend();
-  const { year, month } = useParams();
+  const { year, month } = useParams<{ year: string; month: string }>();
 
   // fetch posts from backend
   useEffect(() => {
@@ -40,13 +46,13 @@ const BlogPage = () => {
       // Fetch posts from specified month and year if provided. Otherwise, fetch all posts.
       const { blogPosts, availableMonths } =
         year && month
-          ? await getBlogPostsByMonth(year, month - 1)
+          ? await getBlogPostsByMonth(+year, +month - 1)
           : await getBlogPosts({ numberOfPosts: NUMBER_OF_POSTS_TO_LOAD });
 
       setPosts(blogPosts);
 
       setNavigationLinks(
-        availableMonths.map((month) => ({
+        availableMonths.map((month: { year: number; month: number }) => ({
           text: `${MONTHS[month.month]} ${month.year}`,
           to: `/blogg/${month.year}/${month.month + 1}`,
         }))
@@ -57,9 +63,7 @@ const BlogPage = () => {
   }, [getBlogPosts, getBlogPostsByMonth, year, month]);
 
   const bottomReachedHandler = async () => {
-
     if (isLoading || reachedEndOfPosts || !posts || posts.length === 0) return;
-
 
     // only posts from before the last current post should be fetched
     const lastPost = posts[posts.length - 1];
@@ -68,7 +72,6 @@ const BlogPage = () => {
       numberOfPosts: NUMBER_OF_POSTS_TO_LOAD,
       latestDate: lastPost.createdAt,
     });
-
 
     // if the number of received posts is smaller than the number asked for,
     // then we must have reached the end of the blog posts
@@ -82,7 +85,6 @@ const BlogPage = () => {
 
   return (
     <Blog
-      numberOfPostsToLoad={NUMBER_OF_POSTS_TO_LOAD}
       posts={posts}
       links={navigationLinks}
       portrait={DUMMY_PORTRAIT}

@@ -3,12 +3,13 @@ import { useParams } from "react-router-dom";
 
 import Gallery from "../components/gallery/Gallery";
 import useBackend from "../hooks/use-backend";
+import { Image } from "../model/image.interface";
 
 const GalleryCategoryPage = () => {
-  const [galleryImages, setGalleryImages] = useState(null);
+  const [galleryImages, setGalleryImages] = useState<Image[]>([]);
   const { getImagesByCategory, error } = useBackend();
 
-  const { category } = useParams();
+  const { category } = useParams<{ category: string }>();
   useEffect(() => {
     const fetchImages = async () => {
       const result = await getImagesByCategory(category);
