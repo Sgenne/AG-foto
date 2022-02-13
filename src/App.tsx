@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import Navbar from "./components/navbar/Navbar";
-import FrontPage from "./pages/FrontPage";
-import GalleryPage from "./pages/GalleryPage";
-import GalleryCategoryPage from "./pages/GalleryCategoryPage";
-import BlogPage from "./pages/BlogPage";
-import AboutMePage from "./pages/AboutMePage";
+import Navbar from "./UI/navbar/Navbar";
+import FrontPage from "./views/front-page/FrontPage";
+import GalleryPage from "./views/gallery/GalleryPage";
+import GalleryCategoryPage from "./views/gallery/GalleryCategoryPage";
+import BlogPage from "./views/blog/BlogPage";
+import AboutMePage from "./views/about-me/AboutMePage";
 
 function App() {
   return (

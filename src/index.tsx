@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import "./index.css";
+import "./fonts.css"
 import App from "./App";
-import "./fonts/FrankRuhlLibre-Regular.ttf";
 
 ReactDOM.render(<App />, document.getElementById("root"));

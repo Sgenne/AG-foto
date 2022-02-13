@@ -1,0 +1,27 @@
+.image-modal__image-container {
+  display: flex;
+  align-items: center;
+}
+
+.image-modal__image {
+  height: 85vh;
+  max-width: 90vw;
+  object-fit: cover;
+}
+
+.image-modal__arrow-container {
+  width: 5rem;
+  cursor: pointer;
+}
+
+.image-modal__close-button {
+  position: absolute;
+  top: 0;
+  right: 5rem;
+  margin: 0;
+  transform: translate(50%, -50%);
+}
+
+.image-modal--hidden {
+  display: none;
+}

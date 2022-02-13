@@ -1,0 +1,21 @@
+.blog * {
+    margin: 0;
+    padding: 0;
+}
+
+.blog {
+    display: flex;
+    width: 100%;
+}
+
+.blog__posts {
+    width: 70%;
+}
+
+.blog__navigation {
+    width: 30%;
+}
+
+.loader-container {
+    text-align: center;
+}
